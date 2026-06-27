@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { skills } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+import { SpotlightCard } from "./ui/SpotlightCard";
 
 function AnimatedPercent({ level }: { level: number }) {
   const [count, setCount] = useState(0);
@@ -58,6 +59,9 @@ const categoryIcons: Record<string, string> = {
   Frontend: "🎨",
   Backend: "⚙️",
   DevOps: "🚀",
+  "Cloud & DevOps": "☁️",
+  "Mobile Development": "📱",
+  "IoT & Embedded": "🔌",
   Design: "✨",
   Tools: "🛠️",
 };
@@ -87,18 +91,19 @@ export function Skills() {
               key={category.category}
               variants={fadeUp}
               whileHover={{ y: -4 }}
-              className="glow-card rounded-2xl p-6"
             >
-              <h3 className="mb-6 flex items-center gap-2 text-lg font-semibold">
-                <span className="text-xl">{categoryIcons[category.category] || "📦"}</span>
-                <span className="h-2 w-2 rounded-full bg-accent" />
-                {category.category}
-              </h3>
-              <div className="space-y-4">
-                {category.skills.map((skill) => (
-                  <SkillBar key={skill.name} {...skill} />
-                ))}
-              </div>
+              <SpotlightCard className="p-6">
+                <h3 className="mb-6 flex items-center gap-2 text-lg font-semibold">
+                  <span className="text-xl">{categoryIcons[category.category] || "📦"}</span>
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  {category.category}
+                </h3>
+                <div className="space-y-4">
+                  {category.skills.map((skill) => (
+                    <SkillBar key={skill.name} {...skill} />
+                  ))}
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>

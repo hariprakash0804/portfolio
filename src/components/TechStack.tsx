@@ -6,6 +6,7 @@ import { techStack } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerFast } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { SpotlightCard } from "./ui/SpotlightCard";
 
 const categories = ["All", ...Array.from(new Set(techStack.map((t) => t.category)))];
 
@@ -67,13 +68,14 @@ export function TechStack() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 whileHover={{ y: -6, scale: 1.05 }}
-                className="glow-card group flex flex-col items-center justify-center rounded-xl p-5 text-center"
               >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-lg font-bold text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
-                  {tech.name.slice(0, 2)}
-                </div>
-                <span className="text-xs font-medium text-foreground">{tech.name}</span>
-                <span className="mt-0.5 text-[10px] text-muted">{tech.category}</span>
+                <SpotlightCard className="flex flex-col items-center justify-center p-5 text-center h-full">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-lg font-bold text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
+                    {tech.name.slice(0, 2)}
+                  </div>
+                  <span className="text-xs font-medium text-foreground">{tech.name}</span>
+                  <span className="mt-0.5 text-[10px] text-muted">{tech.category}</span>
+                </SpotlightCard>
               </motion.div>
             ))}
           </AnimatePresence>
