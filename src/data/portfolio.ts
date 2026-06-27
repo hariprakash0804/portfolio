@@ -287,13 +287,13 @@ export const education: Education[] = [
   {
     degree: "Bachelor of Technology (B.Tech) in Information Technology",
     school: "K.S.R Institute for Engineering and Technology, Tiruchengode",
-    year: "2022 – Present",
+    year: "2022 – 2026",
     note: "CGPA: 8.343",
   },
   {
     degree: "Minor Degree in Sensor Technologies and IoT",
     school: "K.S.R Institute for Engineering and Technology, Tiruchengode",
-    year: "2022 – Present",
+    year: "2022 – 2026",
     note: "CGPA: 8.333",
   },
   {
@@ -419,12 +419,12 @@ export const responsibilities: Responsibility[] = [
   {
     role: "President",
     organization: "Kamban Tamil Mandram",
-    period: "2022 – Present",
+    period: "2022 – 2023",
   },
   {
     role: "Class Representative",
     organization: "B.Tech Information Technology",
-    period: "2022 – Present",
+    period: "2022 – 2023",
   },
   {
     role: "Pupil Leader",
@@ -454,6 +454,11 @@ export const paperPresentations: PaperPresentation[] = [
     venue: "KSR College of Engineering",
     year: "2024",
   },
+  {
+    title: "Enhancing Legal Literacy Through LegalBuddy AI Problem Driven Design With Superior Outcome Metric",
+    venue: "Kalasalingam Academy of Research and Education",
+    year: "2026",
+  }
 ];
 
 /* ------------------------------------------------------------------ */
@@ -505,7 +510,7 @@ export const softSkills: string[] = [
 /* ------------------------------------------------------------------ */
 
 export const additionalInfo = {
-  languages: ["Tamil", "English", "Kannada"],
+  languages: ["Tamil", "English", "Kannada(Native)"],
   hobbies: ["Reading Books", "Listening to Music", "Exploring Tech"],
   interestedDomains: ["IoT", "Cybersecurity", "AI/ML", "Full Stack Development"],
 };
@@ -571,10 +576,16 @@ export const timeline: TimelineEvent[] = [
     type: "certification",
   },
   {
-    date: "2025",
+    date: "2026",
     title: "LegalBuddy AI Launched",
     subtitle: "RAG-based AI legal guidance platform",
     type: "achievement",
+  },
+  {
+    date: "2026",
+    title: "Paper Presentations",
+    subtitle: "Enhancing Legal Literacy Through LegalBuddy AI Problem Driven Design With Superior Outcome Metric",
+    type: "paper",
   },
 ];
 
