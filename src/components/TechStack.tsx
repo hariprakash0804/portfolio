@@ -69,12 +69,14 @@ export function TechStack() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 whileHover={{ y: -6, scale: 1.05 }}
               >
-                <SpotlightCard className="flex flex-col items-center justify-center p-5 text-center h-full">
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-lg font-bold text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
-                    {tech.name.slice(0, 2)}
+                <SpotlightCard className="h-full">
+                  <div className="flex flex-col items-center justify-center p-5 text-center">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-lg font-bold text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
+                      {tech.name.slice(0, 2)}
+                    </div>
+                    <div className="text-xs font-semibold text-foreground">{tech.name}</div>
+                    <div className="mt-1 text-[10px] text-muted">{tech.category}</div>
                   </div>
-                  <span className="text-xs font-medium text-foreground">{tech.name}</span>
-                  <span className="mt-0.5 text-[10px] text-muted">{tech.category}</span>
                 </SpotlightCard>
               </motion.div>
             ))}
