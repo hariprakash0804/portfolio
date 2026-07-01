@@ -7,6 +7,8 @@ export function CustomCursor() {
   const [hovered, setHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(true);
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -15,7 +17,16 @@ export function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    const checkDevice = () => {
+      const hasTouch = window.matchMedia("(pointer: coarse)").matches;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(hasTouch || isSmallScreen);
+    };
+
+    checkDevice();
     setMounted(true);
+    window.addEventListener("resize", checkDevice);
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -42,12 +53,13 @@ export function CustomCursor() {
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
+      window.removeEventListener("resize", checkDevice);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, [cursorX, cursorY]);
 
-  if (!mounted) return null;
+  if (!mounted || isMobile) return null;
 
   return (
     <>

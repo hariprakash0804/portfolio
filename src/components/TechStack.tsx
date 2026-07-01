@@ -56,7 +56,7 @@ export function TechStack() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-12 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
+          className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((tech) => (

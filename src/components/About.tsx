@@ -21,10 +21,10 @@ export function About() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-16"
+          className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
         >
           {/* Left Column: Portrait & Contact */}
-          <motion.div variants={slideInLeft} className="lg:col-span-5 space-y-6">
+          <motion.div variants={slideInLeft} className="col-span-1 lg:col-span-5 space-y-6">
             {personal.avatar && (
               <div className="relative group mx-auto max-w-sm lg:max-w-none">
                 {/* Rotating decorative border */}
@@ -77,7 +77,7 @@ export function About() {
           </motion.div>
 
           {/* Right Column: Bio & Core Skills */}
-          <motion.div variants={slideInRight} className="lg:col-span-7 space-y-6">
+          <motion.div variants={slideInRight} className="col-span-1 lg:col-span-7 space-y-6">
             {/* Career Objective Callout */}
             {personal.objective && (
               <motion.div
@@ -143,7 +143,7 @@ export function About() {
           {/* Bottom Area: Full-width "What I Do" */}
           <motion.div
             variants={fadeUp}
-            className="col-span-12 mt-8 space-y-6"
+            className="col-span-1 lg:col-span-12 mt-8 space-y-6"
           >
             <h3 className="text-xl font-bold tracking-tight text-center">
               <span className="gradient-text-animated">What I specialize in</span>

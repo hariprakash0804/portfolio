@@ -37,7 +37,7 @@ export function Achievements() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 grid gap-6 sm:grid-cols-2"
+          className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
           {achievements.map((ach) => {
             const Icon = typeIcons[ach.type];
@@ -85,7 +85,7 @@ export function Achievements() {
             <Users size={20} className="text-accent" />
             Positions of Responsibility
           </h3>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {responsibilities.map((r) => (
               <motion.div
                 key={r.role}
@@ -112,7 +112,7 @@ export function Achievements() {
             <FileText size={20} className="text-accent" />
             Paper Presentations
           </h3>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {paperPresentations.map((p) => (
               <motion.div
                 key={p.title}

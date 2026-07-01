@@ -37,7 +37,7 @@ export function CodingProfiles() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-12 grid gap-6 sm:grid-cols-2"
+          className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
           {codingProfiles.map((profile) => {
             const Icon = platformIcons[profile.platform] || ExternalLink;

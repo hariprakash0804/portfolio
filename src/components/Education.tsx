@@ -31,7 +31,7 @@ export function Education() {
                 key={item.degree}
                 variants={fadeUp}
                 whileHover={{ x: 8 }}
-                className="glow-card group flex gap-6 rounded-2xl p-6"
+                className="glow-card group flex flex-col sm:flex-row gap-4 sm:gap-6 rounded-2xl p-6"
               >
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
                   <motion.div

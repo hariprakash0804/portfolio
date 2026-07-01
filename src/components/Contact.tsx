@@ -45,7 +45,7 @@ export function Contact() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 grid gap-12 lg:grid-cols-2"
+          className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2"
         >
           <motion.div variants={fadeUp} className="space-y-8">
             <div className="space-y-4">
