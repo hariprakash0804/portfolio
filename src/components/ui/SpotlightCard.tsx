@@ -26,7 +26,7 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-white/5 bg-surface transition-all duration-300 hover:border-accent/20",
+        "group relative overflow-hidden rounded-2xl border border-white/5 bg-[#0D0D14] transition-all duration-300 hover:border-amber-500/30",
         className
       )}
     >
@@ -37,7 +37,7 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
           background: useMotionTemplate`
             radial-gradient(
               350px circle at ${mouseX}px ${mouseY}px,
-              rgba(6, 182, 212, 0.15),
+              rgba(245, 158, 11, 0.12),
               transparent 80%
             )
           `,
@@ -51,7 +51,7 @@ export function SpotlightCard({ children, className }: SpotlightCardProps) {
           background: useMotionTemplate`
             radial-gradient(
               150px circle at ${mouseX}px ${mouseY}px,
-              rgba(139, 92, 246, 0.4),
+              rgba(129, 140, 248, 0.35),
               transparent 80%
             )
           `,

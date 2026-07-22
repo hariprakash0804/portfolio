@@ -6,11 +6,11 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp } from "@/lib/motion";
 
 const typeConfig: Record<string, { color: string; bg: string; label: string }> = {
-  education: { color: "text-blue-400", bg: "bg-blue-400", label: "🎓" },
-  work: { color: "text-emerald-400", bg: "bg-emerald-400", label: "💼" },
+  education: { color: "text-indigo-400", bg: "bg-indigo-400", label: "🎓" },
+  work: { color: "text-amber-400", bg: "bg-amber-400", label: "💼" },
   achievement: { color: "text-amber-400", bg: "bg-amber-400", label: "🏆" },
-  certification: { color: "text-purple-400", bg: "bg-purple-400", label: "📜" },
-  paper: { color: "text-cyan-400", bg: "bg-cyan-400", label: "📄" },
+  certification: { color: "text-indigo-400", bg: "bg-indigo-400", label: "📜" },
+  paper: { color: "text-amber-400", bg: "bg-amber-400", label: "📄" },
 };
 
 export function Timeline() {
@@ -18,20 +18,20 @@ export function Timeline() {
     <section id="timeline" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
-          label="Timeline"
-          title="My journey so far"
-          description="A chronological view of my education, work, and achievements."
+          label="JOURNEY"
+          title="How I Got Here"
+          description="A chronological timeline of milestones, achievements, education, and contributions."
           align="center"
         />
 
         <div className="relative mt-16">
-          {/* Timeline line */}
+          {/* Timeline central spine */}
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-0 left-6 h-full w-px origin-top bg-gradient-to-b from-accent via-accent-secondary to-purple-400 md:left-1/2 md:-translate-x-px"
+            className="absolute top-0 left-6 h-full w-[2px] origin-top bg-gradient-to-b from-amber-500 via-indigo-500 to-amber-500/20 md:left-1/2 md:-translate-x-px"
           />
 
           {timeline.map((event, i) => {
@@ -58,18 +58,18 @@ export function Timeline() {
                 >
                   <motion.div
                     whileHover={{ y: -3 }}
-                    className="glow-card rounded-xl p-5"
+                    className="glow-card rounded-xl border border-white/10 bg-[#0D0D14] p-5 shadow-lg"
                   >
-                    <div className={`flex items-center gap-2 text-xs font-mono ${config.color} ${isRight ? "md:justify-end" : ""}`}>
+                    <div className={`flex items-center gap-2 font-mono text-xs uppercase tracking-wider font-semibold ${config.color} ${isRight ? "md:justify-end" : ""}`}>
                       <span>{config.label}</span>
                       {event.date}
                     </div>
-                    <h3 className="mt-2 text-base font-semibold text-foreground">{event.title}</h3>
-                    <p className="mt-1 text-sm text-muted">{event.subtitle}</p>
+                    <h3 className="mt-2 text-base font-bold text-white">{event.title}</h3>
+                    <p className="mt-1 text-xs text-gray-400 font-mono">{event.subtitle}</p>
                   </motion.div>
                 </div>
 
-                {/* Color-coded dot */}
+                {/* Spine Node */}
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -77,8 +77,8 @@ export function Timeline() {
                   transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                   className="absolute top-5 left-6 flex -translate-x-1/2 items-center justify-center md:left-1/2"
                 >
-                  <span className={`absolute h-6 w-6 rounded-full ${config.bg} opacity-20`} />
-                  <span className={`relative h-3 w-3 rounded-full ${config.bg}`} />
+                  <span className="absolute h-6 w-6 rounded-full bg-amber-500/20" />
+                  <span className="relative h-3 w-3 rounded-full bg-amber-500 shadow-md shadow-amber-500/50" />
                 </motion.div>
               </motion.div>
             );

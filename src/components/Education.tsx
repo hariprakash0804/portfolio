@@ -11,9 +11,9 @@ export function Education() {
     <section id="education" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
-          label="Education"
-          title="Academic background"
-          description="Formal education and continuous learning."
+          label="ACADEMICS"
+          title="Education & Degrees"
+          description="Formal degree coursework and foundational engineering studies."
           align="center"
         />
 
@@ -25,15 +25,15 @@ export function Education() {
           className="mt-12 space-y-6"
         >
           {education.map((item, index) => {
-            const isOngoing = item.year.includes("Present");
+            const isOngoing = item.year.includes("Present") || item.year.includes("2026");
             return (
               <motion.div
                 key={item.degree}
                 variants={fadeUp}
                 whileHover={{ x: 8 }}
-                className="glow-card group flex flex-col sm:flex-row gap-4 sm:gap-6 rounded-2xl p-6"
+                className="glow-card group flex flex-col sm:flex-row gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-[#0D0D14] p-6 shadow-xl"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 transition-all group-hover:bg-amber-500/20 group-hover:scale-110">
                   <motion.div
                     initial={{ rotate: 0 }}
                     whileInView={{ rotate: [0, -10, 10, -5, 0] }}
@@ -45,29 +45,17 @@ export function Education() {
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-lg font-semibold">{item.degree}</h3>
-                    <span className={`rounded-full px-3 py-0.5 text-xs font-medium ${
+                    <h3 className="text-lg font-bold text-white">{item.degree}</h3>
+                    <span className={`rounded-full px-3 py-0.5 font-mono text-xs font-semibold ${
                       isOngoing
-                        ? "bg-emerald-400/10 text-emerald-400"
-                        : "bg-white/5 text-muted"
+                        ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                        : "border border-white/10 bg-white/5 text-gray-400"
                     }`}>
-                      {isOngoing ? "🟢 Ongoing" : item.year}
+                      {item.year}
                     </span>
                   </div>
-                  <p className="mt-1 text-accent">{item.school}</p>
-                  <p className="mt-2 text-sm text-muted font-medium">{item.note}</p>
-                  {/* Progress bar for ongoing */}
-                  {isOngoing && (
-                    <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "70%" }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, delay: 0.3 }}
-                        className="h-full rounded-full bg-gradient-to-r from-accent to-accent-secondary"
-                      />
-                    </div>
-                  )}
+                  <p className="mt-1 font-mono text-xs text-amber-400">{item.school}</p>
+                  <p className="mt-2 text-sm text-gray-300 font-medium">{item.note}</p>
                 </div>
               </motion.div>
             );

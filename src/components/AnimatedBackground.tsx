@@ -13,7 +13,7 @@ export function AnimatedBackground() {
           scale: [1, 1.15, 0.95, 1],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-accent/[0.04] blur-[100px]"
+        className="absolute top-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-amber-500/[0.04] blur-[120px]"
       />
       <motion.div
         animate={{
@@ -22,7 +22,7 @@ export function AnimatedBackground() {
           scale: [1.1, 0.9, 1.2, 1.1],
         }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-2/3 -right-32 h-[400px] w-[400px] rounded-full bg-accent-secondary/[0.04] blur-[100px]"
+        className="absolute top-2/3 -right-32 h-[450px] w-[450px] rounded-full bg-indigo-500/[0.04] blur-[120px]"
       />
       <motion.div
         animate={{
@@ -30,7 +30,7 @@ export function AnimatedBackground() {
           y: [0, -20, 30, 0],
         }}
         transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/3 h-[300px] w-[300px] rounded-full bg-purple-500/[0.03] blur-[80px]"
+        className="absolute top-1/2 left-1/3 h-[350px] w-[350px] rounded-full bg-amber-400/[0.03] blur-[100px]"
       />
     </div>
   );

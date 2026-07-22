@@ -14,14 +14,22 @@ import { Achievements } from "@/components/Achievements";
 import { CodingProfiles } from "@/components/CodingProfiles";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { CustomCursor } from "@/components/CustomCursor";
+import { Preloader } from "@/components/Preloader";
+import { BackgroundVideo } from "@/components/BackgroundVideo";
+import { CinematicOverlay } from "@/components/CinematicOverlay";
+import { DevBuddy } from "@/components/DevBuddy";
+import { GlobalInteractions } from "@/components/GlobalInteractions";
 
 export default function Home() {
   return (
     <>
+      <GlobalInteractions />
+      <Preloader />
+      <BackgroundVideo />
+      <CinematicOverlay />
       <CustomCursor />
-      <AnimatedBackground />
+      <DevBuddy />
       <ScrollProgress />
       <Navbar />
       <main className="relative z-10">

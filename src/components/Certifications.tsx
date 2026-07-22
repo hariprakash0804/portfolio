@@ -11,9 +11,9 @@ export function Certifications() {
     <section id="certifications" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
-          label="Certifications"
-          title="Credentials & awards"
-          description="Professional certifications and recognitions."
+          label="CREDENTIALS"
+          title="Certifications & Badges"
+          description="Verified course completion certificates and technical study jams."
           align="center"
         />
 
@@ -29,23 +29,19 @@ export function Certifications() {
               key={`${cert.title}-${cert.issuer}`}
               variants={fadeUp}
               whileHover={{ scale: 1.02, y: -3 }}
-              className="glow-card group relative overflow-hidden flex items-start gap-4 rounded-xl p-5"
+              className="glow-card group relative overflow-hidden flex items-start gap-4 rounded-xl border border-white/10 bg-[#0D0D14] p-5 shadow-md"
             >
-              {/* Shine effect on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                <div className="absolute -inset-full top-0 h-full w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/5 to-transparent"
-                  style={{ animation: "shimmer 2s infinite" }} />
-              </div>
-
-              <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400 transition-all group-hover:scale-110">
+              <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-400 transition-all group-hover:scale-110">
                 <Award size={20} />
               </div>
               <div className="relative">
-                <div className="text-sm font-medium text-foreground">
+                <div className="text-sm font-bold text-gray-200 group-hover:text-amber-400 transition-colors">
                   {cert.title}
                 </div>
-                <div className="mt-1 text-xs text-muted">{cert.issuer}</div>
-                <div className="mt-1 inline-block rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent font-medium">{cert.year}</div>
+                <div className="mt-1 font-mono text-xs text-gray-400">{cert.issuer}</div>
+                <div className="mt-2 inline-block rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-amber-400">
+                  {cert.year}
+                </div>
               </div>
             </motion.div>
           ))}

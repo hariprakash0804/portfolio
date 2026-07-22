@@ -13,12 +13,12 @@ export function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
 
       const sections = navLinks.map((l) => l.href.slice(1));
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
+        if (el && el.getBoundingClientRect().top <= 140) {
           setActiveSection(id);
           break;
         }
@@ -36,9 +36,9 @@ export function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "fixed top-0 right-0 left-0 z-50 transition-all duration-500",
+          "fixed top-0 right-0 left-0 z-50 h-[72px] transition-all duration-500",
           scrolled
-            ? "border-b border-white/5 bg-background/70 backdrop-blur-xl shadow-lg shadow-black/10"
+            ? "border-b border-white/5 bg-[#050508]/75 backdrop-blur-xl shadow-2xl shadow-black/40"
             : "bg-transparent",
         )}
       >
@@ -47,56 +47,70 @@ export function Navbar() {
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"
+            className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent"
           />
         )}
 
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+          {/* Logo with splitting letters on hover */}
           <a
             href="#"
-            className="group flex items-center gap-2 font-mono text-lg font-bold"
+            className="group flex items-center gap-1 font-mono text-xl font-bold tracking-tight text-amber-500 magnetic"
           >
             <motion.span
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-secondary text-sm text-white shadow-lg shadow-accent/25"
+              whileHover={{ x: -4 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className="inline-block"
             >
-              {personal.name.short.slice(0, 2)}
+              H
             </motion.span>
-            <span className="hidden text-foreground sm:inline">
-              {personal.name.short}
-            </span>
+            <motion.span
+              whileHover={{ x: 4 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className="inline-block text-amber-400"
+            >
+              P
+            </motion.span>
           </a>
 
-          <ul className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={cn(
-                    "relative rounded-lg px-3 py-2 text-sm transition-colors",
-                    activeSection === link.href.slice(1)
-                      ? "text-accent"
-                      : "text-muted hover:text-foreground",
-                  )}
-                >
-                  {link.label}
-                  {activeSection === link.href.slice(1) && (
+          {/* Desktop Nav Links */}
+          <ul className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={cn(
+                      "group relative font-mono text-[12px] font-medium uppercase tracking-[0.15em] transition-colors duration-300 magnetic py-1",
+                      isActive ? "text-amber-400" : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    {link.label}
+                    {/* Hover text glow & underline */}
+                    <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:[text-shadow:0_0_20px_rgba(245,158,11,0.5)]">
+                      {link.label}
+                    </span>
                     <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 -z-10 rounded-lg bg-accent/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-amber-500"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: isActive ? 1 : 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
                     />
-                  )}
-                </a>
-              </li>
-            ))}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
+          {/* CTA Button with Liquid Fill */}
           <a
             href="#contact"
-            className="hidden rounded-full bg-gradient-to-r from-accent to-accent-secondary px-5 py-2.5 text-sm font-medium text-white transition-all hover:shadow-lg hover:shadow-accent/25 md:inline-block"
+            className="group magnetic relative hidden overflow-hidden rounded-full border border-amber-500 px-6 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 transition-colors duration-500 hover:text-[#050508] md:inline-block"
           >
-            Get in touch
+            <span className="absolute inset-0 z-0 origin-left scale-x-0 bg-amber-500 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-x-100" />
+            <span className="relative z-10">Let's Build</span>
           </a>
 
           <button
@@ -105,31 +119,32 @@ export function Navbar() {
             className="rounded-lg p-2 text-foreground md:hidden"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={24} className="text-amber-400" /> : <Menu size={24} className="text-gray-300" />}
           </button>
         </nav>
       </motion.header>
 
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-[#050508]/95 backdrop-blur-2xl md:hidden"
           >
-            <div className="flex h-full flex-col items-center justify-center gap-5 pt-20">
+            <div className="flex h-full flex-col items-center justify-center gap-6 pt-20">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
+                  transition={{ delay: i * 0.05 }}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "text-2xl font-medium",
-                    activeSection === link.href.slice(1) ? "text-accent" : "text-foreground"
+                    "font-mono text-2xl font-bold uppercase tracking-widest transition-colors",
+                    activeSection === link.href.slice(1) ? "text-amber-400" : "text-gray-300 hover:text-amber-400"
                   )}
                 >
                   {link.label}
@@ -139,11 +154,11 @@ export function Navbar() {
                 href="#contact"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.06 }}
+                transition={{ delay: navLinks.length * 0.05 }}
                 onClick={() => setMobileOpen(false)}
-                className="mt-4 rounded-full bg-gradient-to-r from-accent to-accent-secondary px-8 py-3 text-lg font-medium text-white"
+                className="mt-6 rounded-full border border-amber-500 bg-amber-500/10 px-8 py-3 font-mono text-sm font-semibold uppercase tracking-widest text-amber-400"
               >
-                Get in touch
+                Let's Build
               </motion.a>
             </div>
           </motion.div>

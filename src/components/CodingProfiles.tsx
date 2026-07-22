@@ -12,23 +12,14 @@ const platformIcons: Record<string, typeof GithubIcon> = {
   LinkedIn: LinkedinIcon,
 };
 
-const platformColors: Record<string, string> = {
-  GitHub: "from-gray-600 to-gray-800",
-  LinkedIn: "from-blue-600 to-blue-800",
-  LeetCode: "from-amber-500 to-amber-700",
-  HackerRank: "from-emerald-500 to-emerald-700",
-  CodeChef: "from-yellow-600 to-yellow-800",
-  GeeksforGeeks: "from-green-500 to-green-700",
-};
-
 export function CodingProfiles() {
   return (
     <section id="coding-profiles" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
-          label="Profiles"
-          title="Find me online"
-          description="My coding profiles and professional networks."
+          label="ONLINE PRESENCE"
+          title="Find Me Online"
+          description="Connect with me on professional networks and explore my open-source code repositories."
           align="center"
         />
 
@@ -41,7 +32,6 @@ export function CodingProfiles() {
         >
           {codingProfiles.map((profile) => {
             const Icon = platformIcons[profile.platform] || ExternalLink;
-            const gradient = platformColors[profile.platform] || "from-accent to-accent-secondary";
 
             return (
               <motion.a
@@ -52,27 +42,27 @@ export function CodingProfiles() {
                 variants={fadeUp}
                 whileHover={{ y: -6, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="glow-card group relative overflow-hidden rounded-2xl p-6"
+                className="glow-card group magnetic relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D14] p-6 shadow-xl"
               >
-                {/* Gradient accent strip */}
-                <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${gradient}`} />
+                {/* Amber top border strip */}
+                <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-amber-500 to-indigo-500" />
 
                 <div className="flex items-center gap-4">
-                  <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg`}>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 shadow-lg">
                     <Icon size={24} />
                   </div>
                   <div className="flex-1">
-                    <div className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
+                    <div className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
                       {profile.platform}
                     </div>
-                    <div className="text-sm text-muted">@{profile.username}</div>
+                    <div className="font-mono text-xs text-gray-400">@{profile.username}</div>
                     {profile.stats && (
-                      <div className="mt-1 text-xs text-accent">{profile.stats}</div>
+                      <div className="mt-1 font-mono text-xs text-amber-400">{profile.stats}</div>
                     )}
                   </div>
                   <ExternalLink
-                    size={18}
-                    className="text-muted transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent"
+                    size={20}
+                    className="text-gray-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-amber-400"
                   />
                 </div>
               </motion.a>

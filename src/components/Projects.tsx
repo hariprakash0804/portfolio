@@ -6,9 +6,7 @@ import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "./icons/SocialIcons";
 import { projects } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
-import { fadeUp, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
-import { SpotlightCard } from "./ui/SpotlightCard";
 
 const filters = ["All", "Featured", ...Array.from(new Set(projects.map((p) => p.category)))];
 
@@ -26,11 +24,12 @@ export function Projects() {
     <section id="projects" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          label="Projects"
-          title="Selected work"
-          description="A collection of projects that showcase my skills and passion."
+          label="SELECTED WORK"
+          title="Things I've Shipped"
+          description="A showcase of full-stack platforms, AI chatbots, and interactive web applications."
         />
 
+        {/* Filter buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,10 +42,10 @@ export function Projects() {
               type="button"
               onClick={() => setActiveFilter(filter)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-all",
+                "rounded-full px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer magnetic",
                 activeFilter === filter
-                  ? "bg-accent text-white shadow-lg shadow-accent/25"
-                  : "border border-white/10 text-muted hover:border-white/20 hover:text-foreground",
+                  ? "bg-amber-500 text-[#050508] shadow-lg shadow-amber-500/25"
+                  : "border border-white/10 bg-white/5 text-gray-400 hover:border-amber-500/50 hover:text-white"
               )}
             >
               {filter}
@@ -54,106 +53,115 @@ export function Projects() {
           ))}
         </motion.div>
 
-        <motion.div layout className="mt-12 grid gap-6 md:grid-cols-2">
+        {/* Projects Grid */}
+        <motion.div layout className="mt-12 grid gap-8 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div
                 key={project.title}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 whileHover={{ y: -8 }}
+                className="project-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D14] transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_20px_80px_rgba(245,158,11,0.1)]"
               >
-                <SpotlightCard className="h-full">
-                  {/* Header image/gradient area */}
-                  <div
-                    className="relative h-48 overflow-hidden"
-                    style={{ backgroundColor: project.color }}
-                  >
-                    {/* Dynamic Project Image */}
-                    {project.imageUrl && (
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
-                      />
-                    )}
-
-                    {/* Animated gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-accent/10 to-accent-secondary/10"
-                      animate={{ opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 4, repeat: Infinity }}
+                {/* Mock preview area */}
+                <div
+                  className="relative h-56 overflow-hidden"
+                  style={{ backgroundColor: project.color }}
+                >
+                  {project.imageUrl ? (
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
+                  ) : (
+                    <div className="flex h-full items-center justify-center font-mono text-4xl font-bold text-white/20">
+                      {project.title}
+                    </div>
+                  )}
 
-                    {/* Hover overlay */}
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100"
-                      style={{ backgroundColor: `${project.color}ee` }}
-                    >
-                      <div className="flex gap-3">
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D14] via-[#0D0D14]/40 to-transparent" />
+
+                  {/* Hover Quick Action Buttons */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 backdrop-blur-xs transition-opacity duration-300 group-hover:opacity-100 bg-[#050508]/60">
+                    <div className="flex gap-4">
+                      {project.liveUrl && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform hover:scale-110"
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500 text-[#050508] transition-transform hover:scale-110 shadow-lg shadow-amber-500/30"
                           aria-label="Live demo"
                         >
-                          <ExternalLink size={18} className="text-white" />
+                          <ExternalLink size={20} />
                         </a>
+                      )}
+                      {project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform hover:scale-110"
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-transform hover:scale-110 border border-white/20 hover:border-amber-500"
                           aria-label="GitHub repo"
                         >
-                          <GithubIcon size={18} className="text-white" />
+                          <GithubIcon size={20} />
                         </a>
-                      </div>
-                    </motion.div>
+                      )}
+                    </div>
+                  </div>
 
-                    <span className="absolute top-4 left-4 rounded-full bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                      {project.category}
+                  {/* Category Pill */}
+                  <span className="absolute top-4 left-4 rounded-full border border-white/10 bg-black/50 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-300 backdrop-blur-md">
+                    {project.category}
+                  </span>
+
+                  {/* Featured Badge with Pulsing Keyframe Animation */}
+                  {project.featured && (
+                    <span
+                      className="absolute top-4 right-4 rounded-full bg-amber-500 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[#050508]"
+                      style={{ animation: "pulse-glow-featured 2s infinite" }}
+                    >
+                      FEATURED
                     </span>
-                    {project.featured && (
-                      <span className="absolute top-4 right-4 rounded-full bg-accent/80 px-3 py-1 text-xs font-medium text-white">
-                        Featured
-                      </span>
-                    )}
+                  )}
+                </div>
+
+                {/* Card Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="mt-1 font-mono text-xs text-amber-500/80">{project.tagline}</p>
+                    </div>
+                    <ArrowUpRight
+                      size={22}
+                      className="text-gray-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-amber-400"
+                    />
                   </div>
 
-                  <div className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          {project.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-accent">{project.tagline}</p>
-                      </div>
-                      <ArrowUpRight
-                        size={20}
-                        className="text-muted transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent"
-                      />
-                    </div>
-                    <p className="mt-3 text-sm leading-relaxed text-muted line-clamp-3">
-                      {project.description}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2 font-mono">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md bg-accent/10 px-2.5 py-1 text-xs text-accent font-medium"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                  <p className="mt-4 text-sm leading-relaxed text-gray-400 line-clamp-3">
+                    {project.description}
+                  </p>
+
+                  {/* Tech stack chips */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[11px] font-medium text-amber-400"
+                      >
+                        {t}
+                      </span>
+                    ))}
                   </div>
-                </SpotlightCard>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

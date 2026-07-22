@@ -19,9 +19,9 @@ export function TechStack() {
     <section id="techstack" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          label="Tech Stack"
-          title="Tools & technologies"
-          description="A visual overview of the technologies in my toolkit."
+          label="STACK OVERVIEW"
+          title="Tools & Technologies"
+          description="A visual overview of the languages, frameworks, and infrastructure in my toolkit."
           align="center"
         />
 
@@ -38,10 +38,10 @@ export function TechStack() {
               type="button"
               onClick={() => setActive(cat)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-all",
+                "rounded-full px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer magnetic",
                 active === cat
-                  ? "bg-accent text-white shadow-lg shadow-accent/25"
-                  : "border border-white/10 text-muted hover:border-white/20 hover:text-foreground",
+                  ? "bg-amber-500 text-[#050508] shadow-lg shadow-amber-500/25"
+                  : "border border-white/10 bg-white/5 text-gray-400 hover:border-amber-500/50 hover:text-white"
               )}
             >
               {cat}
@@ -71,11 +71,11 @@ export function TechStack() {
               >
                 <SpotlightCard className="h-full">
                   <div className="flex flex-col items-center justify-center p-5 text-center">
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-lg font-bold text-accent transition-all group-hover:bg-accent/20 group-hover:scale-110">
-                      {tech.name.slice(0, 2)}
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 font-mono text-sm font-bold text-amber-400 transition-all group-hover:border-amber-500/50 group-hover:bg-amber-500/20 group-hover:scale-110">
+                      {tech.name.slice(0, 2).toUpperCase()}
                     </div>
-                    <div className="text-xs font-semibold text-foreground">{tech.name}</div>
-                    <div className="mt-1 text-[10px] text-muted">{tech.category}</div>
+                    <div className="text-xs font-mono font-semibold text-gray-200">{tech.name}</div>
+                    <div className="mt-1 font-mono text-[10px] uppercase text-gray-400">{tech.category}</div>
                   </div>
                 </SpotlightCard>
               </motion.div>

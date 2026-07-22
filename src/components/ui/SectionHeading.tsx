@@ -24,16 +24,16 @@ export function SectionHeading({
       variants={fadeUp}
       className={align === "center" ? "text-center" : ""}
     >
-      <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 font-mono text-xs tracking-widest text-accent uppercase backdrop-blur-sm">
-        <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" />
+      <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-1.5 font-mono text-xs font-semibold tracking-widest text-amber-400 uppercase backdrop-blur-sm">
+        <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse-glow" />
         {label}
       </span>
-      <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl font-display">
         <span className="gradient-text-animated">{title}</span>
       </h2>
       {description && (
         <p
-          className={`mt-4 max-w-2xl text-lg text-muted ${align === "center" ? "mx-auto" : ""}`}
+          className={`mt-4 max-w-2xl text-lg text-gray-400 ${align === "center" ? "mx-auto" : ""}`}
         >
           {description}
         </p>
@@ -44,7 +44,7 @@ export function SectionHeading({
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className={`mt-6 h-px origin-left bg-gradient-to-r from-accent via-accent-secondary to-transparent ${
+        className={`mt-6 h-px origin-left bg-gradient-to-r from-amber-500 via-indigo-500 to-transparent ${
           align === "center" ? "mx-auto max-w-xs origin-center" : "max-w-md"
         }`}
       />

@@ -37,7 +37,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
   }, [isInView, target]);
 
   return (
-    <span ref={ref} className="text-4xl font-bold gradient-text-animated sm:text-5xl">
+    <span ref={ref} className="font-mono text-4xl font-extrabold gradient-text-animated sm:text-5xl">
       {count}{suffix}
     </span>
   );
@@ -46,8 +46,6 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
 export function Statistics() {
   return (
     <section id="statistics" className="relative px-6 py-20 lg:py-28">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.03] to-transparent" />
-
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -62,13 +60,15 @@ export function Statistics() {
               key={stat.label}
               variants={fadeUp}
               whileHover={{ y: -6, scale: 1.02 }}
-              className="glow-card group flex flex-col items-center rounded-2xl p-8 text-center"
+              className="glow-card group flex flex-col items-center rounded-2xl border border-white/10 bg-[#0D0D14] p-8 text-center shadow-xl"
             >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent/20">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-colors group-hover:bg-amber-500/20">
                 <Icon size={24} />
               </div>
               <CountUp target={stat.numericValue} suffix={stat.suffix} />
-              <span className="mt-2 text-sm text-muted">{stat.label}</span>
+              <span className="mt-2 font-mono text-xs font-semibold uppercase tracking-wider text-gray-400">
+                {stat.label}
+              </span>
             </motion.div>
           );
         })}
