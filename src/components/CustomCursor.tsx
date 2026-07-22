@@ -25,14 +25,19 @@ export function CustomCursor() {
   const frameCount = useRef(0);
 
   useEffect(() => {
-    const checkDevice = () => {
+    const initTimer = setTimeout(() => {
       const hasTouch = window.matchMedia("(pointer: coarse)").matches;
       const isSmallScreen = window.innerWidth < 768;
       setIsMobile(hasTouch || isSmallScreen);
+      setMounted(true);
+    }, 0);
+
+    const checkDevice = () => {
+      const touch = window.matchMedia("(pointer: coarse)").matches;
+      const small = window.innerWidth < 768;
+      setIsMobile(touch || small);
     };
 
-    checkDevice();
-    setMounted(true);
     window.addEventListener("resize", checkDevice);
 
     const moveCursor = (e: MouseEvent) => {
@@ -69,6 +74,7 @@ export function CustomCursor() {
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
+      clearTimeout(initTimer);
       window.removeEventListener("resize", checkDevice);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);

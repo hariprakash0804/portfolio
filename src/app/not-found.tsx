@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowLeft, Home } from "lucide-react";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 
@@ -32,13 +33,13 @@ export default function NotFound() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-secondary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all hover:shadow-xl hover:shadow-accent/30"
             >
               <Home size={16} />
               Back to Home
-            </a>
+            </Link>
             
             <button
               onClick={() => window.history.back()}

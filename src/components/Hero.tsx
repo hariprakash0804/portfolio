@@ -69,8 +69,8 @@ export function Hero() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 whileHover={{
-                  y: (Math.random() - 0.5) * 20,
-                  rotate: (Math.random() - 0.5) * 15,
+                  y: ((index % 3) - 1) * 10,
+                  rotate: ((index % 2) * 2 - 1) * 8,
                   transition: { duration: 0.3 },
                 }}
                 className="inline-block text-6xl font-bold tracking-tight text-[#F0EEE6] sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"
@@ -96,8 +96,8 @@ export function Hero() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 whileHover={{
-                  y: (Math.random() - 0.5) * 20,
-                  rotate: (Math.random() - 0.5) * 15,
+                  y: (((index + 1) % 3) - 1) * 10,
+                  rotate: (((index + 1) % 2) * 2 - 1) * 8,
                   transition: { duration: 0.3 },
                 }}
                 className="inline-block text-6xl font-bold tracking-tight text-transparent sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"

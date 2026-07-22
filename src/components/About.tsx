@@ -46,19 +46,19 @@ export function About() {
                   Career Objective
                 </span>
                 <p className="text-sm italic leading-relaxed text-gray-300">
-                  "{personal.objective}"
+                  &quot;{personal.objective}&quot;
                 </p>
               </motion.div>
             )}
 
             <p className="text-lg leading-relaxed text-gray-300 font-body">
-              I'm Hari Prakash — a full-stack and mobile developer who graduated in Information Technology from KSRIET. I build products that live at the intersection of performance, design, and AI. Whether it's a legal chatbot serving Tamil-speaking users or an LMS handling thousands of learners, I architect systems that scale and interfaces that feel alive.
+              I&apos;m Hari Prakash — a full-stack and mobile developer who graduated in Information Technology from KSRIET. I build products that live at the intersection of performance, design, and AI. Whether it&apos;s a legal chatbot serving Tamil-speaking users or an LMS handling thousands of learners, I architect systems that scale and interfaces that feel alive.
             </p>
             <p className="text-lg leading-relaxed text-gray-400 font-body">
-              My stack runs deep: from React and Next.js on the frontend to tRPC, Prisma, and Redis on the back. I'm fluent in TypeScript, comfortable with embedded systems, and perpetually exploring what AI can unlock in the tools I build.
+              My stack runs deep: from React and Next.js on the frontend to tRPC, Prisma, and Redis on the back. I&apos;m fluent in TypeScript, comfortable with embedded systems, and perpetually exploring what AI can unlock in the tools I build.
             </p>
             <p className="text-lg leading-relaxed text-gray-400 font-body">
-              When I'm not coding, I'm probably debugging something in n8n, watching Tamil cinema, or thinking about how to make the next project not just functional but genuinely beautiful.
+              When I&apos;m not coding, I&apos;m probably debugging something in n8n, watching Tamil cinema, or thinking about how to make the next project not just functional but genuinely beautiful.
             </p>
 
             {/* Stat Blocks */}
@@ -155,6 +155,7 @@ export function About() {
             {/* Profile Avatar & Location */}
             {personal.avatar && (
               <div className="glow-card flex items-center gap-4 rounded-xl p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={personal.avatar}
                   alt={personal.name.display}

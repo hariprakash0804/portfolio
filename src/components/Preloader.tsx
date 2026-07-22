@@ -12,8 +12,10 @@ export function Preloader() {
     if (typeof window !== "undefined") {
       const visited = localStorage.getItem("hp_visited");
       if (!visited) {
-        setShow(true);
-        localStorage.setItem("hp_visited", "true");
+        setTimeout(() => {
+          setShow(true);
+          localStorage.setItem("hp_visited", "true");
+        }, 0);
       }
     }
   }, []);

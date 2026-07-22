@@ -73,6 +73,7 @@ export function Projects() {
                   style={{ backgroundColor: project.color }}
                 >
                   {project.imageUrl ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={project.imageUrl}
                       alt={project.title}

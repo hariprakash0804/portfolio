@@ -28,7 +28,6 @@ function CharacterModel({ state }: { state: string }) {
   // Materials
   const hoodieMat = new THREE.MeshStandardMaterial({ color: "#1A1A2E", roughness: 0.8 });
   const skinMat = new THREE.MeshStandardMaterial({ color: "#F5C5A3", roughness: 0.6 });
-  const eyeWhiteMat = new THREE.MeshStandardMaterial({ color: "#FFFFFF" });
   const eyeIrisMat = new THREE.MeshStandardMaterial({ color: "#2D2D2D" });
   const amberMat = new THREE.MeshStandardMaterial({ color: "#F59E0B", roughness: 0.4, metalness: 0.3 });
   const mouthMat = new THREE.MeshStandardMaterial({ color: "#4A2C1A" });
@@ -110,9 +109,8 @@ function CharacterModel({ state }: { state: string }) {
         <meshStandardMaterial color="#FFFFFF" />
       </mesh>
       {/* Left Eye Iris */}
-      <mesh ref={leftEyeRef} position={[-0.12, 0.4, 0.32]}>
+      <mesh ref={leftEyeRef} position={[-0.12, 0.4, 0.32]} material={eyeIrisMat}>
         <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color="#2D2D2D" />
       </mesh>
 
       {/* Right Eye White */}
@@ -121,9 +119,8 @@ function CharacterModel({ state }: { state: string }) {
         <meshStandardMaterial color="#FFFFFF" />
       </mesh>
       {/* Right Eye Iris */}
-      <mesh ref={rightEyeRef} position={[0.12, 0.4, 0.32]}>
+      <mesh ref={rightEyeRef} position={[0.12, 0.4, 0.32]} material={eyeIrisMat}>
         <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color="#2D2D2D" />
       </mesh>
 
       {/* Mouth */}
@@ -176,25 +173,31 @@ function SpeechBubble({ text, visible }: { text: string; visible: boolean }) {
   const [typing, setTyping] = useState(false);
 
   useEffect(() => {
-    if (!visible || !text) {
-      setDisplayed("");
-      setTyping(false);
-      return;
-    }
-
-    setDisplayed("");
-    setTyping(true);
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setTimeout(() => setTyping(false), 600);
+    let interval: ReturnType<typeof setInterval>;
+    const timer = setTimeout(() => {
+      if (!visible || !text) {
+        setDisplayed("");
+        setTyping(false);
+        return;
       }
-    }, 40);
 
-    return () => clearInterval(interval);
+      setDisplayed("");
+      setTyping(true);
+      let i = 0;
+      interval = setInterval(() => {
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(interval);
+          setTimeout(() => setTyping(false), 600);
+        }
+      }, 40);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+      if (interval) clearInterval(interval);
+    };
   }, [text, visible]);
 
   if (!visible) return null;
@@ -263,12 +266,13 @@ export function DevBuddy() {
 
   // Hydration-safe mount
   useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 3200); // After preloader
-    // Restore collapsed state
-    if (typeof window !== "undefined") {
-      const saved = sessionStorage.getItem("devbuddy_collapsed");
-      if (saved === "true") setCollapsed(true);
-    }
+    const timer = setTimeout(() => {
+      setMounted(true);
+      if (typeof window !== "undefined") {
+        const saved = sessionStorage.getItem("devbuddy_collapsed");
+        if (saved === "true") setCollapsed(true);
+      }
+    }, 3200); // After preloader
     return () => clearTimeout(timer);
   }, []);
 
@@ -304,7 +308,6 @@ export function DevBuddy() {
       setCharState("talking");
       setBubbleVisible(true);
 
-      // After dialogue text should finish typing
       const textLen = (dialogues[activeSection] || "").length;
       const typeDuration = textLen * 40 + 600;
 
@@ -312,7 +315,6 @@ export function DevBuddy() {
         setCharState("idle");
       }, typeDuration);
 
-      // Auto-hide bubble after 8s
       setTimeout(() => {
         setBubbleVisible(false);
       }, 8000);
@@ -321,21 +323,27 @@ export function DevBuddy() {
 
   useEffect(() => {
     if (mounted && !collapsed) {
-      triggerDialogue();
+      const timer = setTimeout(() => {
+        triggerDialogue();
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [activeSection, mounted, collapsed, triggerDialogue]);
 
   // Initial wave
   useEffect(() => {
     if (mounted && !collapsed) {
-      setCharState("wave");
-      setTimeout(() => {
-        setCharState("talking");
-        setBubbleVisible(true);
-        const textLen = dialogues.hero.length;
-        setTimeout(() => setCharState("idle"), textLen * 40 + 600);
-        setTimeout(() => setBubbleVisible(false), 8000);
-      }, 1200);
+      const timer = setTimeout(() => {
+        setCharState("wave");
+        setTimeout(() => {
+          setCharState("talking");
+          setBubbleVisible(true);
+          const textLen = dialogues.hero.length;
+          setTimeout(() => setCharState("idle"), textLen * 40 + 600);
+          setTimeout(() => setBubbleVisible(false), 8000);
+        }, 1200);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [mounted, collapsed]);
 

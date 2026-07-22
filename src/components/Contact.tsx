@@ -81,7 +81,7 @@ export function Contact() {
         {/* Massive Text Outline Effect */}
         <div className="mt-4 text-center cursor-default group">
           <h3 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-            <span className="text-[#F0EEE6]">Let's Build Something </span>
+            <span className="text-[#F0EEE6]">Let&apos;s Build Something </span>
             <span
               className="inline-block text-transparent group-hover:text-amber-400 transition-colors duration-500"
               style={{

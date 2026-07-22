@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { navLinks, personal } from "@/data/portfolio";
+import { navLinks } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -110,7 +110,7 @@ export function Navbar() {
             className="group magnetic relative hidden overflow-hidden rounded-full border border-amber-500 px-6 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 transition-colors duration-500 hover:text-[#050508] md:inline-block"
           >
             <span className="absolute inset-0 z-0 origin-left scale-x-0 bg-amber-500 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-x-100" />
-            <span className="relative z-10">Let's Build</span>
+            <span className="relative z-10">Let&apos;s Build</span>
           </a>
 
           <button
@@ -158,7 +158,7 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-6 rounded-full border border-amber-500 bg-amber-500/10 px-8 py-3 font-mono text-sm font-semibold uppercase tracking-widest text-amber-400"
               >
-                Let's Build
+                Let&apos;s Build
               </motion.a>
             </div>
           </motion.div>

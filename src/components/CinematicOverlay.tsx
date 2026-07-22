@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CinematicOverlay() {
   const grainRef = useRef<HTMLCanvasElement>(null);
@@ -9,47 +9,42 @@ export function CinematicOverlay() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [isMobile, setIsMobile] = useState(true);
 
-  // Film grain generator
-  const drawGrain = useCallback(() => {
-    const canvas = grainRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    frameRef.current++;
-    // Only update grain every 4 frames for performance
-    if (frameRef.current % 4 === 0) {
-      const w = canvas.width;
-      const h = canvas.height;
-      const imageData = ctx.createImageData(w, h);
-      for (let i = 0; i < imageData.data.length; i += 4) {
-        const val = Math.random() > 0.5 ? 255 : 0;
-        imageData.data[i] = val;
-        imageData.data[i + 1] = val;
-        imageData.data[i + 2] = val;
-        imageData.data[i + 3] = Math.random() * 12; // max alpha ~0.05
-      }
-      ctx.putImageData(imageData, 0, 0);
-    }
-
-    rafRef.current = requestAnimationFrame(drawGrain);
-  }, []);
-
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // Resize grain canvas
     const canvas = grainRef.current;
     if (canvas) {
       canvas.width = Math.min(window.innerWidth / 2, 400);
       canvas.height = Math.min(window.innerHeight / 2, 300);
     }
 
+    const drawGrain = () => {
+      if (grainRef.current) {
+        const ctx = grainRef.current.getContext("2d");
+        if (ctx) {
+          frameRef.current++;
+          if (frameRef.current % 4 === 0) {
+            const w = grainRef.current.width;
+            const h = grainRef.current.height;
+            const imageData = ctx.createImageData(w, h);
+            for (let i = 0; i < imageData.data.length; i += 4) {
+              const val = Math.random() > 0.5 ? 255 : 0;
+              imageData.data[i] = val;
+              imageData.data[i + 1] = val;
+              imageData.data[i + 2] = val;
+              imageData.data[i + 3] = Math.random() * 12;
+            }
+            ctx.putImageData(imageData, 0, 0);
+          }
+        }
+      }
+      rafRef.current = requestAnimationFrame(drawGrain);
+    };
+
     rafRef.current = requestAnimationFrame(drawGrain);
 
-    // Cursor spotlight
     const handleMouse = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
@@ -60,7 +55,7 @@ export function CinematicOverlay() {
       window.removeEventListener("resize", checkMobile);
       window.removeEventListener("mousemove", handleMouse);
     };
-  }, [drawGrain]);
+  }, []);
 
   if (isMobile) return null;
 
