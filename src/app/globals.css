@@ -481,6 +481,56 @@ body::after {
   body::after {
     display: none;
   }
+
+  /* Remove iOS tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Disable shine animation on hover (touch devices can't hover) */
+  .glow-card::after {
+    display: none;
+  }
+
+  /* Disable spotlight cursor follow on mobile */
+  .spotlight::before {
+    display: none;
+  }
+
+  /* Disable gradient border hover effect on mobile */
+  .gradient-border::before {
+    display: none;
+  }
+
+  /* Wider section dividers on mobile */
+  .section-divider {
+    max-width: 90%;
+  }
+
+  /* Ensure minimum touch target sizes */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Exception: inline text links and tiny decorative elements */
+  a.inline-link,
+  span > a,
+  p > a,
+  li > a:not([class]),
+  .glow-card a,
+  .glow-card button,
+  nav a {
+    min-height: unset;
+    min-width: unset;
+  }
+}
+
+/* Touch device detection — disable hover-only transforms */
+@media (hover: none) and (pointer: coarse) {
+  .magnetic {
+    transform: none !important;
+  }
 }
 
 /* Reduced motion */

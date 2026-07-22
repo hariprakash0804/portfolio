@@ -20,7 +20,7 @@ export default function NotFound() {
           {/* Animated top glow strip */}
           <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-secondary" />
 
-          <h1 className="text-8xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-secondary">
+          <h1 className="text-6xl sm:text-8xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-secondary">
             404
           </h1>
           

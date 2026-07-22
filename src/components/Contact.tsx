@@ -72,14 +72,14 @@ export function Contact() {
       {/* Aurora Horizon Background Orbs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute -bottom-48 left-10 h-[500px] w-[800px] rounded-full opacity-30 blur-[100px]"
+          className="absolute -bottom-48 left-10 h-[300px] w-[400px] sm:h-[500px] sm:w-[800px] rounded-full opacity-30 blur-[100px]"
           style={{
             background: "radial-gradient(ellipse, rgba(245,158,11,0.12) 0%, transparent 70%)",
             animation: "aurora-drift-1 12s ease-in-out infinite alternate",
           }}
         />
         <div
-          className="absolute -bottom-36 right-5 h-[400px] w-[600px] rounded-full opacity-25 blur-[120px]"
+          className="absolute -bottom-36 right-5 h-[250px] w-[350px] sm:h-[400px] sm:w-[600px] rounded-full opacity-25 blur-[120px]"
           style={{
             background: "radial-gradient(ellipse, rgba(129,140,248,0.1) 0%, transparent 70%)",
             animation: "aurora-drift-2 16s ease-in-out infinite alternate",
@@ -110,7 +110,7 @@ export function Contact() {
 
         {/* Massive Text Outline Effect */}
         <div className="mt-4 text-center cursor-default group">
-          <h3 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
+          <h3 className="text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-7xl">
             <span className="text-[#F0EEE6]">Let&apos;s Build Something </span>
             <span
               className="inline-block text-transparent group-hover:text-amber-400 transition-colors duration-500"
@@ -153,6 +153,7 @@ export function Contact() {
             {/* Interactive Email Copy Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={copyEmail}
               className="glow-card cursor-pointer group flex items-center justify-between rounded-2xl border border-amber-500/30 bg-[#0D0D14] p-6 shadow-xl"
             >
@@ -175,6 +176,7 @@ export function Contact() {
             {/* Interactive Phone Copy Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={copyPhone}
               className="glow-card cursor-pointer group flex items-center justify-between rounded-2xl border border-white/10 bg-[#0D0D14] p-6 shadow-xl"
             >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { techStack } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -13,6 +13,14 @@ const categories = ["All", ...Array.from(new Set(techStack.map((t) => t.category
 
 export function TechStack() {
   const [active, setActive] = useState("All");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const filtered = active === "All" ? techStack : techStack.filter((t) => t.category === active);
 
@@ -68,7 +76,8 @@ export function TechStack() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ y: -6, scale: 1.05 }}
+                whileHover={isMobile ? undefined : { y: -6, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <SpotlightCard className="h-full">
                   <div className="flex flex-col items-center justify-center p-5 text-center">

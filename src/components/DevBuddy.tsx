@@ -306,6 +306,7 @@ export function DevBuddy() {
   const [charState, setCharState] = useState("wave");
   const [customText, setCustomText] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const bubbleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleSelectPrompt = (prompt: string) => {
@@ -331,9 +332,14 @@ export function DevBuddy() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMounted(true);
+      const mobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+      setIsMobile(mobile);
       if (typeof window !== "undefined") {
         const saved = sessionStorage.getItem("devbuddy_collapsed");
-        if (saved === "true") setCollapsed(true);
+        // Start collapsed on mobile by default
+        if (saved === "true" || (saved === null && mobile)) {
+          setCollapsed(true);
+        }
       }
     }, 3200); // After preloader
     return () => clearTimeout(timer);
@@ -443,7 +449,7 @@ export function DevBuddy() {
   return (
     <div
       className="fixed bottom-6 right-6 z-[900]"
-      style={{ width: 160, height: 220 }}
+      style={{ width: isMobile ? 120 : 160, height: isMobile ? 170 : 220 }}
     >
       {/* Close button */}
       <button

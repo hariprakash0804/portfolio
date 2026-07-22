@@ -105,7 +105,7 @@ export function Skills() {
                   {duplicated.map((item, i) => (
                     <div
                       key={`${item}-${i}`}
-                      className="magnetic inline-flex h-9 items-center justify-center gap-2 rounded-full border border-white/10 bg-[#0D0D14] px-4 font-mono text-xs font-medium text-gray-300 transition-all duration-300 hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400 hover:-translate-y-1 hover:shadow-[0_0_16px_rgba(245,158,11,0.2)]"
+                      className="magnetic inline-flex h-9 items-center justify-center gap-2 rounded-full border border-white/10 bg-[#0D0D14] px-4 font-mono text-xs font-medium text-gray-300 transition-all duration-300 hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400 md:hover:-translate-y-1 hover:shadow-[0_0_16px_rgba(245,158,11,0.2)]"
                     >
                       <BrandIcon name={item} size={15} />
                       <span>{item}</span>

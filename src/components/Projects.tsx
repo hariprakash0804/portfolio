@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ArrowUpRight, Eye } from "lucide-react";
 import { GithubIcon } from "./icons/SocialIcons";
@@ -15,6 +15,14 @@ const filters = ["All", "Featured", ...Array.from(new Set(projects.map((p) => p.
 export function Projects() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const filtered =
     activeFilter === "All"
@@ -67,7 +75,8 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                whileHover={{ y: -8 }}
+                whileHover={isMobile ? undefined : { y: -8 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedProject(project)}
                 className="project-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D14] transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_20px_80px_rgba(245,158,11,0.1)] cursor-pointer"
               >
@@ -93,7 +102,7 @@ export function Projects() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D14] via-[#0D0D14]/40 to-transparent" />
 
                   {/* Hover Quick Action Buttons */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 backdrop-blur-xs transition-opacity duration-300 group-hover:opacity-100 bg-[#050508]/60">
+                  <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-[#050508]/60 ${isMobile ? 'opacity-0' : 'opacity-0 backdrop-blur-xs group-hover:opacity-100'}`}>
                     <div className="flex gap-3">
                       <button
                         type="button"

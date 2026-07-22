@@ -19,7 +19,9 @@ export function GradientMesh() {
   const rafRef = useRef<number>(0);
 
   const initParticles = useCallback((width: number, height: number) => {
-    const count = Math.min(Math.floor((width * height) / 10000), 140);
+    const isMobile = window.matchMedia("(pointer: coarse)").matches || width < 768;
+    const maxCount = isMobile ? 60 : 140;
+    const count = Math.min(Math.floor((width * height) / 10000), maxCount);
     const palette = [
       { color: "rgba(245, 158, 11,", weight: 0.25 },  // amber
       { color: "rgba(129, 140, 248,", weight: 0.15 }, // indigo

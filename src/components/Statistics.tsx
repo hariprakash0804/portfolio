@@ -51,7 +51,7 @@ export function Statistics() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
-        className="relative mx-auto grid grid-cols-1 max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="relative mx-auto grid grid-cols-2 max-w-6xl gap-4 sm:gap-6 lg:grid-cols-3"
       >
         {statistics.map((stat) => {
           const Icon = iconMap[stat.label] || Code;

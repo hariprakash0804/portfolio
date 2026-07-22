@@ -169,7 +169,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-foreground md:hidden"
+            className="rounded-lg p-2.5 text-foreground md:hidden cursor-pointer"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} className="text-amber-400" /> : <Menu size={24} className="text-gray-300" />}
@@ -186,7 +186,7 @@ export function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-[#050508]/95 backdrop-blur-2xl md:hidden"
           >
-            <div className="flex h-full flex-col items-center justify-center gap-5 pt-16 px-6">
+            <div className="flex h-full flex-col items-center justify-center gap-5 pt-16 px-6 overflow-y-auto">
               {/* Mobile Theme & Sound Bar */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -228,7 +228,7 @@ export function Navbar() {
                   transition={{ delay: i * 0.04 }}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "font-mono text-xl font-bold uppercase tracking-widest transition-colors",
+                    "font-mono text-xl font-bold uppercase tracking-widest transition-colors py-2",
                     activeSection === link.href.slice(1) ? "text-amber-400" : "text-gray-300 hover:text-amber-400"
                   )}
                 >

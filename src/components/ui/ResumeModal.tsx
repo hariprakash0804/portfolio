@@ -30,10 +30,10 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative z-10 flex h-[85vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-amber-500/30 bg-[#0D0D14] p-6 shadow-[0_0_80px_rgba(245,158,11,0.15)]"
+          className="relative z-10 flex h-[90vh] sm:h-[85vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-amber-500/30 bg-[#0D0D14] p-4 sm:p-6 shadow-[0_0_80px_rgba(245,158,11,0.15)]"
         >
           {/* Modal Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4 mb-4">
             <div>
               <h3 className="font-display text-xl font-bold text-white">Hariprakash A — Resume</h3>
               <p className="font-mono text-xs text-amber-400">Full Stack & Mobile Developer CV</p>

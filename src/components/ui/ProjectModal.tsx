@@ -62,7 +62,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D14] via-[#0D0D14]/30 to-transparent" />
             
-            <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-wrap items-end justify-between gap-3 sm:gap-4">
               <div>
                 <span className="inline-block rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 font-mono text-xs uppercase tracking-widest text-amber-400 mb-2">
                   {project.category}

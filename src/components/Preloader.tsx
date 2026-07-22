@@ -77,7 +77,7 @@ export function Preloader() {
                 {personal.name.short.split("").map((letter, i) => (
                   <motion.span
                     key={`${letter}-${i}`}
-                    className="text-8xl font-bold tracking-tight"
+                    className="text-6xl sm:text-8xl font-bold tracking-tight"
                     style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)" }}
                     initial={{ clipPath: "inset(0 100% 0 0)" }}
                     animate={{

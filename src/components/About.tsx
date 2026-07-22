@@ -53,24 +53,24 @@ export function About() {
               </motion.div>
             )}
 
-            <p className="text-lg leading-relaxed text-gray-300 font-body">
+            <p className="text-base sm:text-lg leading-relaxed text-gray-300 font-body">
               I&apos;m Hari Prakash — a full-stack and mobile developer who graduated in Information Technology from KSRIET. I build products that live at the intersection of performance, design, and AI. Whether it&apos;s a legal chatbot serving Tamil-speaking users or an LMS handling thousands of learners, I architect systems that scale and interfaces that feel alive.
             </p>
-            <p className="text-lg leading-relaxed text-gray-400 font-body">
+            <p className="text-base sm:text-lg leading-relaxed text-gray-400 font-body">
               My stack runs deep: from React and Next.js on the frontend to tRPC, Prisma, and Redis on the back. I&apos;m fluent in TypeScript, comfortable with embedded systems, and perpetually exploring what AI can unlock in the tools I build.
             </p>
-            <p className="text-lg leading-relaxed text-gray-400 font-body">
+            <p className="text-base sm:text-lg leading-relaxed text-gray-400 font-body">
               When I&apos;m not coding, I&apos;m probably debugging something in n8n, watching Tamil cinema, or thinking about how to make the next project not just functional but genuinely beautiful.
             </p>
 
             {/* Stat Blocks */}
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="glow-card rounded-xl border border-white/10 bg-[#0D0D14] p-5 text-left">
-                <div className="font-display text-4xl sm:text-5xl font-extrabold text-amber-400">3+</div>
+                <div className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-amber-400">3+</div>
                 <div className="font-body text-xs font-medium text-gray-400 mt-1 uppercase tracking-wider">Years Building</div>
               </div>
               <div className="glow-card rounded-xl border border-white/10 bg-[#0D0D14] p-5 text-left">
-                <div className="font-display text-4xl sm:text-5xl font-extrabold text-amber-400">10+</div>
+                <div className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-amber-400">10+</div>
                 <div className="font-body text-xs font-medium text-gray-400 mt-1 uppercase tracking-wider">Projects Shipped</div>
               </div>
             </div>
@@ -155,7 +155,7 @@ export function About() {
               </div>
 
               {/* Code */}
-              <pre className="font-mono text-xs leading-relaxed text-gray-300 overflow-x-auto">
+              <pre className="font-mono text-[10px] sm:text-xs leading-relaxed text-gray-300 overflow-x-auto">
                 <code className="text-amber-400">
                   {codeSnippet}
                 </code>
