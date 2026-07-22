@@ -33,8 +33,17 @@ function CharacterModel({ state }: { state: string }) {
   const mouthMat = new THREE.MeshStandardMaterial({ color: "#4A2C1A" });
   const darkMat = new THREE.MeshStandardMaterial({ color: "#0D0D14" });
 
-  useFrame((_, delta) => {
+  useFrame((stateCtx, delta) => {
     if (!groupRef.current) return;
+
+    // Pointer mouse tracking
+    const mouseX = stateCtx.pointer.x;
+    const mouseY = stateCtx.pointer.y;
+
+    if (headRef.current) {
+      headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, mouseX * 0.35, 0.08);
+      headRef.current.rotation.x = THREE.MathUtils.lerp(headRef.current.rotation.x, -mouseY * 0.25, 0.08);
+    }
 
     // Idle float
     groupRef.current.position.y = Math.sin(Date.now() * 0.001) * 0.08;
@@ -71,13 +80,6 @@ function CharacterModel({ state }: { state: string }) {
     // Excited state
     if (state === "excited" && groupRef.current) {
       groupRef.current.position.y += Math.abs(Math.sin(Date.now() * 0.008)) * 0.15;
-    }
-
-    // Head slight nod for talking
-    if (state === "talking" && headRef.current) {
-      headRef.current.rotation.x = Math.sin(Date.now() * 0.003) * 0.05;
-    } else if (headRef.current) {
-      headRef.current.rotation.x = 0;
     }
   });
 
@@ -212,7 +214,7 @@ function SpeechBubble({
 
   return (
     <div
-      className="absolute bottom-full right-0 mb-3 w-64 rounded-2xl rounded-br-sm border p-4 text-xs leading-relaxed"
+      className="absolute bottom-full right-0 mb-3 w-56 sm:w-64 max-w-[85vw] rounded-2xl rounded-br-sm border p-3.5 sm:p-4 text-xs leading-relaxed"
       style={{
         background: "var(--bg-surface)",
         borderColor: "var(--border-glow)",
@@ -249,6 +251,12 @@ function SpeechBubble({
             className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300 transition-colors hover:bg-emerald-500 hover:text-black cursor-pointer"
           >
             🤖 AI Stack?
+          </button>
+          <button
+            onClick={() => onSelectPrompt("World Record?")}
+            className="rounded-full border border-yellow-500/30 bg-yellow-500/10 px-2 py-0.5 text-[10px] text-yellow-300 transition-colors hover:bg-yellow-500 hover:text-black cursor-pointer"
+          >
+            🏆 World Record?
           </button>
         </div>
       )}
@@ -310,6 +318,8 @@ export function DevBuddy() {
         setCustomText("Hari is open to Full Stack, AI & Mobile Developer roles! Reach out via the Contact form or Email below. 🚀");
       } else if (prompt === "AI Stack?") {
         setCustomText("Hari works with Retrieval-Augmented Generation (RAG), FAISS dense vector search, OpenRouter, Node, & Python!");
+      } else if (prompt === "World Record?") {
+        setCustomText("Hari is an Asian Book of World Records holder for TanMillets awareness campaign leadership! 🏆");
       }
       setCharState("talking");
       setBubbleVisible(true);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { personal } from "@/data/portfolio";
 
 export function Preloader() {
   const [show, setShow] = useState(false);
@@ -70,12 +71,12 @@ export function Preloader() {
               transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
             />
 
-            {/* HP Initials */}
+            {/* HPA Initials */}
             <motion.div className="relative z-10 mb-8">
               <div className="flex gap-4">
-                {["H", "P"].map((letter, i) => (
+                {personal.name.short.split("").map((letter, i) => (
                   <motion.span
-                    key={letter}
+                    key={`${letter}-${i}`}
                     className="text-8xl font-bold tracking-tight"
                     style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)" }}
                     initial={{ clipPath: "inset(0 100% 0 0)" }}

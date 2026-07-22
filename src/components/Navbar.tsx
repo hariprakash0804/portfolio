@@ -2,15 +2,33 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { navLinks } from "@/data/portfolio";
+import { Menu, X, Volume2, VolumeX } from "lucide-react";
+import { navLinks, personal } from "@/data/portfolio";
+import { sound } from "@/lib/sound";
 import { cn } from "@/lib/utils";
+
+type ThemeMode = "amber" | "cyan" | "emerald" | "violet";
+
+const themeOptions: { id: ThemeMode; color: string }[] = [
+  { id: "amber", color: "bg-amber-400" },
+  { id: "cyan", color: "bg-cyan-400" },
+  { id: "emerald", color: "bg-emerald-400" },
+  { id: "violet", color: "bg-purple-400" },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [theme, setTheme] = useState<"amber" | "cyan" | "emerald" | "violet">("amber");
+  const [theme, setTheme] = useState<ThemeMode>("amber");
+  const [soundEnabled, setSoundEnabled] = useState(false);
+
+  const toggleSound = () => {
+    const nextState = !soundEnabled;
+    setSoundEnabled(nextState);
+    sound.setEnabled(nextState);
+    if (nextState) sound.playSuccess();
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -62,20 +80,19 @@ export function Navbar() {
             href="#"
             className="group flex items-center gap-1 font-mono text-xl font-bold tracking-tight text-amber-500 magnetic"
           >
-            <motion.span
-              whileHover={{ x: -4 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="inline-block"
-            >
-              H
-            </motion.span>
-            <motion.span
-              whileHover={{ x: 4 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="inline-block text-amber-400"
-            >
-              P
-            </motion.span>
+            {personal.name.short.split("").map((letter, idx) => (
+              <motion.span
+                key={idx}
+                whileHover={{ y: idx % 2 === 0 ? -4 : 4 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className={cn(
+                  "inline-block",
+                  idx === 0 ? "text-amber-500" : idx === 1 ? "text-amber-400" : "text-amber-300"
+                )}
+              >
+                {letter}
+              </motion.span>
+            ))}
           </a>
 
           {/* Desktop Nav Links */}
@@ -109,17 +126,15 @@ export function Navbar() {
             })}
           </ul>
 
-          {/* Theme Accent Switcher */}
-          <div className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 backdrop-blur-md lg:flex">
-            {[
-              { id: "amber", color: "bg-amber-400" },
-              { id: "cyan", color: "bg-cyan-400" },
-              { id: "emerald", color: "bg-emerald-400" },
-              { id: "violet", color: "bg-purple-400" },
-            ].map((t) => (
+          {/* Theme Accent Switcher & Sound Toggle */}
+          <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-md lg:flex">
+            {themeOptions.map((t) => (
               <button
                 key={t.id}
-                onClick={() => setTheme(t.id as any)}
+                onClick={() => {
+                  setTheme(t.id);
+                  sound.playClick();
+                }}
                 className={cn(
                   "h-3.5 w-3.5 rounded-full transition-transform hover:scale-125 cursor-pointer",
                   t.color,
@@ -129,6 +144,17 @@ export function Navbar() {
                 aria-label={`Switch theme to ${t.id}`}
               />
             ))}
+
+            <span className="h-3 w-px bg-white/15" />
+
+            <button
+              onClick={toggleSound}
+              className="flex items-center text-gray-400 hover:text-amber-400 transition-colors cursor-pointer"
+              title={soundEnabled ? "Mute audio effects" : "Enable sci-fi audio effects"}
+              aria-label="Toggle sound effects"
+            >
+              {soundEnabled ? <Volume2 size={15} className="text-amber-400" /> : <VolumeX size={15} />}
+            </button>
           </div>
 
           {/* CTA Button with Liquid Fill */}
@@ -160,17 +186,49 @@ export function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-[#050508]/95 backdrop-blur-2xl md:hidden"
           >
-            <div className="flex h-full flex-col items-center justify-center gap-6 pt-20">
+            <div className="flex h-full flex-col items-center justify-center gap-5 pt-16 px-6">
+              {/* Mobile Theme & Sound Bar */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md mb-2"
+              >
+                {themeOptions.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => {
+                      setTheme(t.id);
+                      sound.playClick();
+                    }}
+                    className={cn(
+                      "h-4 w-4 rounded-full transition-transform cursor-pointer",
+                      t.color,
+                      theme === t.id ? "scale-125 ring-2 ring-white/60" : "opacity-60"
+                    )}
+                    aria-label={`Switch theme to ${t.id}`}
+                  />
+                ))}
+                <span className="h-4 w-px bg-white/15" />
+                <button
+                  onClick={toggleSound}
+                  className="flex items-center text-gray-300 hover:text-amber-400"
+                  aria-label="Toggle sound"
+                >
+                  {soundEnabled ? <Volume2 size={18} className="text-amber-400" /> : <VolumeX size={18} />}
+                </button>
+              </motion.div>
+
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "font-mono text-2xl font-bold uppercase tracking-widest transition-colors",
+                    "font-mono text-xl font-bold uppercase tracking-widest transition-colors",
                     activeSection === link.href.slice(1) ? "text-amber-400" : "text-gray-300 hover:text-amber-400"
                   )}
                 >

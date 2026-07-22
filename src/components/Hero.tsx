@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, FileText, Eye } from "lucide-react";
+import { ArrowDown, Eye } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
 import { personal } from "@/data/portfolio";
 import { GradientMesh } from "./GradientMesh";
@@ -14,7 +14,7 @@ export function Hero() {
   const nameSecond = "PRAKASH";
 
   return (
-    <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden px-6 pt-20">
+    <section id="hero" className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden px-6 pt-20">
       {/* Background Layer — WebGL/Canvas Particle Field */}
       <GradientMesh />
 
@@ -76,7 +76,7 @@ export function Hero() {
                   rotate: ((index % 2) * 2 - 1) * 8,
                   transition: { duration: 0.3 },
                 }}
-                className="inline-block text-6xl font-bold tracking-tight text-[#F0EEE6] sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"
+                className="inline-block text-4xl xs:text-5xl font-bold tracking-tight text-[#F0EEE6] sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"
               >
                 {char}
               </motion.span>
@@ -103,7 +103,7 @@ export function Hero() {
                   rotate: (((index + 1) % 2) * 2 - 1) * 8,
                   transition: { duration: 0.3 },
                 }}
-                className="inline-block text-6xl font-bold tracking-tight text-transparent sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"
+                className="inline-block text-4xl xs:text-5xl font-bold tracking-tight text-transparent sm:text-8xl md:text-9xl group-hover:[text-shadow:0_0_80px_rgba(245,158,11,0.4)]"
                 style={{
                   WebkitTextStroke: "2px rgba(245, 158, 11, 0.85)",
                 }}

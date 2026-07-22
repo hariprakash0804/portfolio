@@ -494,3 +494,42 @@ body::after {
     display: none;
   }
 }
+
+/* ================================================================== */
+/*  PRINT STYLES — Clean 1-2 page document printing                  */
+/* ================================================================== */
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body::after,
+  #cursor-ring,
+  #cursor-dot,
+  nav,
+  canvas,
+  .vignette-overlay,
+  .scanline-overlay,
+  footer {
+    display: none !important;
+  }
+
+  section {
+    padding: 1rem 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .glow-card {
+    border: 1px solid #e5e7eb !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+
+  h1, h2, h3, h4, p, span, div {
+    color: #000000 !important;
+    text-shadow: none !important;
+  }
+}

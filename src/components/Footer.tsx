@@ -19,20 +19,24 @@ export function Footer() {
           viewport={{ once: true }}
           className="font-mono text-xs text-gray-500 uppercase tracking-wider"
         >
-          {personal.name.short} © {year}
+          {personal.name.short} © {year} • All rights reserved
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="font-mono text-xs text-gray-400"
-        >
-          Built with Next.js & obsession
-        </motion.p>
+        {/* Footer Quick Nav Links */}
+        <div className="flex flex-wrap justify-center gap-4 font-mono text-xs text-gray-400">
+          <a href="#about" className="hover:text-amber-400 transition-colors">About</a>
+          <span>•</span>
+          <a href="#projects" className="hover:text-amber-400 transition-colors">Projects</a>
+          <span>•</span>
+          <a href="#experience" className="hover:text-amber-400 transition-colors">Experience</a>
+          <span>•</span>
+          <a href="#skills" className="hover:text-amber-400 transition-colors">Skills</a>
+          <span>•</span>
+          <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
+        </div>
 
         <motion.a
-          href="#"
+          href="#hero"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
