@@ -7,6 +7,7 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerFast } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./ui/SpotlightCard";
+import { BrandIcon } from "./icons/TechIcons";
 
 const categories = ["All", ...Array.from(new Set(techStack.map((t) => t.category)))];
 
@@ -72,7 +73,7 @@ export function TechStack() {
                 <SpotlightCard className="h-full">
                   <div className="flex flex-col items-center justify-center p-5 text-center">
                     <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 font-mono text-sm font-bold text-amber-400 transition-all group-hover:border-amber-500/50 group-hover:bg-amber-500/20 group-hover:scale-110">
-                      {tech.name.slice(0, 2).toUpperCase()}
+                      {BrandIcon({ name: tech.name, size: 24 }) || tech.name.slice(0, 2).toUpperCase()}
                     </div>
                     <div className="text-xs font-mono font-semibold text-gray-200">{tech.name}</div>
                     <div className="mt-1 font-mono text-[10px] uppercase text-gray-400">{tech.category}</div>

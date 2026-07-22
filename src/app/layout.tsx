@@ -86,11 +86,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Hariprakash A",
+    jobTitle: "Full Stack Developer",
+    url: "https://github.com/hariprakash0804",
+    sameAs: [
+      "https://github.com/hariprakash0804",
+      "https://www.linkedin.com/in/hariprakash-a-55bab6261",
+    ],
+    knowsAbout: [
+      "Full Stack Development",
+      "React",
+      "Next.js",
+      "React Native",
+      "Node.js",
+      "AI Development",
+      "Retrieval-Augmented Generation",
+    ],
+  };
+
   return (
     <html
       lang="en"
       className={`${clashDisplay.variable} ${editorialNew.variable} ${dmSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full bg-[#050508] text-[#F0EEE6] font-body overflow-x-hidden">
         {children}
       </body>

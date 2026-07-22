@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink, ArrowUpRight, Eye } from "lucide-react";
 import { GithubIcon } from "./icons/SocialIcons";
-import { projects } from "@/data/portfolio";
+import { BrandIcon } from "./icons/TechIcons";
+import { projects, Project } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
+import { ProjectModal } from "./ui/ProjectModal";
 import { cn } from "@/lib/utils";
 
 const filters = ["All", "Featured", ...Array.from(new Set(projects.map((p) => p.category)))];
 
 export function Projects() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filtered =
     activeFilter === "All"
@@ -65,7 +68,8 @@ export function Projects() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="project-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D14] transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_20px_80px_rgba(245,158,11,0.1)]"
+                onClick={() => setSelectedProject(project)}
+                className="project-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D14] transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_20px_80px_rgba(245,158,11,0.1)] cursor-pointer"
               >
                 {/* Mock preview area */}
                 <div
@@ -90,16 +94,28 @@ export function Projects() {
 
                   {/* Hover Quick Action Buttons */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 backdrop-blur-xs transition-opacity duration-300 group-hover:opacity-100 bg-[#050508]/60">
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedProject(project);
+                        }}
+                        className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-500 text-[#050508] transition-transform hover:scale-110 shadow-lg shadow-amber-500/30"
+                        title="View details"
+                      >
+                        <Eye size={18} />
+                      </button>
                       {project.liveUrl && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500 text-[#050508] transition-transform hover:scale-110 shadow-lg shadow-amber-500/30"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-transform hover:scale-110 border border-white/20 hover:border-amber-500"
                           aria-label="Live demo"
                         >
-                          <ExternalLink size={20} />
+                          <ExternalLink size={18} />
                         </a>
                       )}
                       {project.githubUrl && (
@@ -107,10 +123,11 @@ export function Projects() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-transform hover:scale-110 border border-white/20 hover:border-amber-500"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-transform hover:scale-110 border border-white/20 hover:border-amber-500"
                           aria-label="GitHub repo"
                         >
-                          <GithubIcon size={20} />
+                          <GithubIcon size={18} />
                         </a>
                       )}
                     </div>
@@ -151,13 +168,14 @@ export function Projects() {
                     {project.description}
                   </p>
 
-                  {/* Tech stack chips */}
+                  {/* Tech stack chips with SVG Brand Icons */}
                   <div className="mt-6 flex flex-wrap gap-2">
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[11px] font-medium text-amber-400"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[11px] font-medium text-amber-400"
                       >
+                        <BrandIcon name={t} size={14} />
                         {t}
                       </span>
                     ))}
@@ -167,6 +185,12 @@ export function Projects() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Project Detail Modal */}
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       </div>
     </section>
   );

@@ -10,6 +10,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [theme, setTheme] = useState<"amber" | "cyan" | "emerald" | "violet">("amber");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -103,6 +108,28 @@ export function Navbar() {
               );
             })}
           </ul>
+
+          {/* Theme Accent Switcher */}
+          <div className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 backdrop-blur-md lg:flex">
+            {[
+              { id: "amber", color: "bg-amber-400" },
+              { id: "cyan", color: "bg-cyan-400" },
+              { id: "emerald", color: "bg-emerald-400" },
+              { id: "violet", color: "bg-purple-400" },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTheme(t.id as any)}
+                className={cn(
+                  "h-3.5 w-3.5 rounded-full transition-transform hover:scale-125 cursor-pointer",
+                  t.color,
+                  theme === t.id ? "scale-125 ring-2 ring-white/50" : "opacity-60 hover:opacity-100"
+                )}
+                title={`Theme: ${t.id}`}
+                aria-label={`Switch theme to ${t.id}`}
+              />
+            ))}
+          </div>
 
           {/* CTA Button with Liquid Fill */}
           <a

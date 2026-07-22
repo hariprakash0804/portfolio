@@ -6,7 +6,7 @@
 export const personal = {
   name: {
     display: "HARIPRAKASH A",
-    short: "HA",
+    short: "HPA",
   },
   primaryRole: "Full Stack Developer",
   roleVariants: [
@@ -288,13 +288,13 @@ export const education: Education[] = [
     degree: "Bachelor of Technology (B.Tech) in Information Technology",
     school: "K.S.R Institute for Engineering and Technology, Tiruchengode",
     year: "2022 – 2026",
-    note: "CGPA: 8.343",
+    note: "CGPA: 8.43",
   },
   {
     degree: "Minor Degree in Sensor Technologies and IoT",
     school: "K.S.R Institute for Engineering and Technology, Tiruchengode",
     year: "2022 – 2026",
-    note: "CGPA: 8.333",
+    note: "CGPA: 8.33",
   },
   {
     degree: "Higher Secondary Education (HSC)",

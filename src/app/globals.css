@@ -23,6 +23,28 @@
   --accent-secondary: #818CF8;
 }
 
+/* Theme accent variations */
+[data-theme="cyan"] {
+  --accent-amber: #06B6D4;
+  --accent-glow: #67E8F9;
+  --accent: #06B6D4;
+  --border-glow: rgba(6, 182, 212, 0.3);
+}
+
+[data-theme="emerald"] {
+  --accent-amber: #10B981;
+  --accent-glow: #6EE7B7;
+  --accent: #10B981;
+  --border-glow: rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="violet"] {
+  --accent-amber: #A855F7;
+  --accent-glow: #C084FC;
+  --accent: #A855F7;
+  --border-glow: rgba(168, 85, 247, 0.3);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

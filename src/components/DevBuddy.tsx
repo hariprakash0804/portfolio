@@ -168,7 +168,15 @@ function CharacterModel({ state }: { state: string }) {
 // Speech Bubble with Typewriter
 // ============================================================
 
-function SpeechBubble({ text, visible }: { text: string; visible: boolean }) {
+function SpeechBubble({
+  text,
+  visible,
+  onSelectPrompt,
+}: {
+  text: string;
+  visible: boolean;
+  onSelectPrompt: (promptText: string) => void;
+}) {
   const [displayed, setDisplayed] = useState("");
   const [typing, setTyping] = useState(false);
 
@@ -191,7 +199,7 @@ function SpeechBubble({ text, visible }: { text: string; visible: boolean }) {
           clearInterval(interval);
           setTimeout(() => setTyping(false), 600);
         }
-      }, 40);
+      }, 35);
     }, 0);
 
     return () => {
@@ -204,20 +212,47 @@ function SpeechBubble({ text, visible }: { text: string; visible: boolean }) {
 
   return (
     <div
-      className="absolute bottom-full right-0 mb-3 w-56 rounded-2xl rounded-br-sm border p-3.5 text-xs leading-relaxed"
+      className="absolute bottom-full right-0 mb-3 w-64 rounded-2xl rounded-br-sm border p-4 text-xs leading-relaxed"
       style={{
         background: "var(--bg-surface)",
         borderColor: "var(--border-glow)",
         color: "var(--text-primary)",
         fontFamily: "var(--font-mono)",
         fontSize: "12px",
-        boxShadow: "0 0 30px rgba(245,158,11,0.08), 0 8px 32px rgba(0,0,0,0.4)",
+        boxShadow: "0 0 30px rgba(245,158,11,0.12), 0 8px 32px rgba(0,0,0,0.5)",
       }}
     >
-      {displayed}
-      {typing && (
-        <span className="ml-0.5 inline-block animate-typewriter-cursor text-amber-400">|</span>
+      <div>
+        {displayed}
+        {typing && (
+          <span className="ml-0.5 inline-block animate-typewriter-cursor text-amber-400">|</span>
+        )}
+      </div>
+
+      {/* Interactive Preset Prompts */}
+      {!typing && (
+        <div className="mt-3 flex flex-wrap gap-1.5 border-t border-white/10 pt-2.5">
+          <button
+            onClick={() => onSelectPrompt("Top project?")}
+            className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-300 transition-colors hover:bg-amber-500 hover:text-black cursor-pointer"
+          >
+            🔥 Top Project?
+          </button>
+          <button
+            onClick={() => onSelectPrompt("Hire Hari?")}
+            className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[10px] text-indigo-300 transition-colors hover:bg-indigo-500 hover:text-white cursor-pointer"
+          >
+            💼 Available?
+          </button>
+          <button
+            onClick={() => onSelectPrompt("AI Stack?")}
+            className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300 transition-colors hover:bg-emerald-500 hover:text-black cursor-pointer"
+          >
+            🤖 AI Stack?
+          </button>
+        </div>
       )}
+
       {/* Tail */}
       <div
         className="absolute -bottom-[10px] right-5"
@@ -261,8 +296,26 @@ export function DevBuddy() {
   const [activeSection, setActiveSection] = useState("hero");
   const [bubbleVisible, setBubbleVisible] = useState(false);
   const [charState, setCharState] = useState("wave");
+  const [customText, setCustomText] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const bubbleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleSelectPrompt = (prompt: string) => {
+    setBubbleVisible(false);
+    setCharState("excited");
+    setTimeout(() => {
+      if (prompt === "Top project?") {
+        setCustomText("LegalBuddy AI is Hari's flagship! A conversational AI platform using RAG & FAISS vector search for Indian statutes.");
+      } else if (prompt === "Hire Hari?") {
+        setCustomText("Hari is open to Full Stack, AI & Mobile Developer roles! Reach out via the Contact form or Email below. 🚀");
+      } else if (prompt === "AI Stack?") {
+        setCustomText("Hari works with Retrieval-Augmented Generation (RAG), FAISS dense vector search, OpenRouter, Node, & Python!");
+      }
+      setCharState("talking");
+      setBubbleVisible(true);
+      setTimeout(() => setCharState("idle"), 3000);
+    }, 300);
+  };
 
   // Hydration-safe mount
   useEffect(() => {
@@ -397,8 +450,9 @@ export function DevBuddy() {
 
       {/* Speech bubble */}
       <SpeechBubble
-        text={dialogues[activeSection] || dialogues.hero}
+        text={customText || dialogues[activeSection] || dialogues.hero}
         visible={bubbleVisible}
+        onSelectPrompt={handleSelectPrompt}
       />
 
       {/* 3D Character */}

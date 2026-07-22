@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Globe, Heart, BookOpen, Cpu, Code, Server, Brain, Shield, ArrowRight } from "lucide-react";
+import { MapPin, Globe, Heart, BookOpen, Cpu, Code, Server, Brain, Shield, ArrowRight, Copy, Check } from "lucide-react";
 import { personal, strengths, softSkills, additionalInfo } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerContainer, slideInLeft, slideInRight } from "@/lib/motion";
 
 export function About() {
+  const [copiedCode, setCopiedCode] = useState(false);
   const codeSnippet = `const hari = {
   role: "Full-Stack Engineer",
   location: "Salem, Tamil Nadu 🇮🇳",
@@ -136,7 +138,20 @@ export function About() {
                   <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
                   <span className="h-3 w-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="font-mono text-xs text-gray-500">developer.ts</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-gray-500">developer.ts</span>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(codeSnippet);
+                      setCopiedCode(true);
+                      setTimeout(() => setCopiedCode(false), 2000);
+                    }}
+                    className="flex h-6 w-6 items-center justify-center rounded text-gray-400 hover:text-amber-400 transition-colors cursor-pointer"
+                    title="Copy code snippet"
+                  >
+                    {copiedCode ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  </button>
+                </div>
               </div>
 
               {/* Code */}

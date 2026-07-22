@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { timeline } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const typeConfig: Record<string, { color: string; bg: string; label: string }> = {
   education: { color: "text-indigo-400", bg: "bg-indigo-400", label: "🎓" },
@@ -13,7 +15,22 @@ const typeConfig: Record<string, { color: string; bg: string; label: string }> =
   paper: { color: "text-amber-400", bg: "bg-amber-400", label: "📄" },
 };
 
+const filterTabs = [
+  { id: "all", label: "All Milestones" },
+  { id: "work", label: "Work Experience" },
+  { id: "education", label: "Education" },
+  { id: "achievement", label: "Achievements" },
+  { id: "paper", label: "Papers" },
+];
+
 export function Timeline() {
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filteredTimeline =
+    activeFilter === "all"
+      ? timeline
+      : timeline.filter((item) => item.type === activeFilter);
+
   return (
     <section id="timeline" className="relative px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-4xl">
@@ -23,6 +40,30 @@ export function Timeline() {
           description="A chronological timeline of milestones, achievements, education, and contributions."
           align="center"
         />
+
+        {/* Filter buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 flex flex-wrap justify-center gap-2"
+        >
+          {filterTabs.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveFilter(tab.id)}
+              className={cn(
+                "rounded-full px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer magnetic",
+                activeFilter === tab.id
+                  ? "bg-amber-500 text-[#050508] shadow-lg shadow-amber-500/25"
+                  : "border border-white/10 bg-white/5 text-gray-400 hover:border-amber-500/50 hover:text-white"
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </motion.div>
 
         <div className="relative mt-16">
           {/* Timeline central spine */}
@@ -34,9 +75,10 @@ export function Timeline() {
             className="absolute top-0 left-6 h-full w-[2px] origin-top bg-gradient-to-b from-amber-500 via-indigo-500 to-amber-500/20 md:left-1/2 md:-translate-x-px"
           />
 
-          {timeline.map((event, i) => {
-            const config = typeConfig[event.type] || typeConfig.education;
-            const isRight = i % 2 === 0;
+          <AnimatePresence mode="popLayout">
+            {filteredTimeline.map((event, i) => {
+              const config = typeConfig[event.type] || typeConfig.education;
+              const isRight = i % 2 === 0;
 
             return (
               <motion.div
@@ -83,6 +125,7 @@ export function Timeline() {
               </motion.div>
             );
           })}
+          </AnimatePresence>
         </div>
       </div>
     </section>

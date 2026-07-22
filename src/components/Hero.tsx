@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown, FileText, Eye } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
 import { personal } from "@/data/portfolio";
 import { GradientMesh } from "./GradientMesh";
+import { ResumeModal } from "./ui/ResumeModal";
 
 export function Hero() {
+  const [resumeOpen, setResumeOpen] = useState(false);
   const nameFirst = "HARI";
   const nameSecond = "PRAKASH";
 
@@ -134,16 +137,18 @@ export function Hero() {
           >
             <span className="relative z-10">See My Work ↓</span>
           </a>
-          <a
-            href={personal.links.resume}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="magnetic inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-3.5 font-mono text-sm font-semibold uppercase tracking-widest text-[#F0EEE6] backdrop-blur-sm transition-all hover:border-amber-500/50 hover:bg-white/10 hover:text-amber-400"
+          <button
+            type="button"
+            onClick={() => setResumeOpen(true)}
+            className="magnetic inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-3.5 font-mono text-sm font-semibold uppercase tracking-widest text-[#F0EEE6] backdrop-blur-sm transition-all hover:border-amber-500/50 hover:bg-white/10 hover:text-amber-400 cursor-pointer"
           >
-            <FileText size={16} />
-            Download CV
-          </a>
+            <Eye size={16} />
+            Preview CV
+          </button>
         </motion.div>
+
+        {/* Resume Viewer Modal */}
+        <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
         {/* Social Icons Row */}
         <motion.div

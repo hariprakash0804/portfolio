@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, MapPin, Send, CheckCircle, Copy, Check } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, Copy, Check, Clock } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
 import { personal } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
+import { Toast } from "./ui/Toast";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const socialLinks = [
@@ -20,19 +21,48 @@ export function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
+  const [localTime, setLocalTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      setLocalTime(new Intl.DateTimeFormat("en-US", options).format(new Date()));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setToastMsg("Thank you! Your message has been sent successfully.");
+    setTimeout(() => setSubmitted(false), 4000);
     setFormState({ name: "", email: "", message: "" });
   };
 
   const copyEmail = () => {
     navigator.clipboard.writeText(personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopiedEmail(true);
+    setToastMsg("Email copied to clipboard! hariprakashanbarasan@gmail.com");
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const copyPhone = () => {
+    navigator.clipboard.writeText(personal.phone);
+    setCopiedPhone(true);
+    setToastMsg("Phone copied to clipboard! +91 9361326233");
+    setTimeout(() => setCopiedPhone(false), 2000);
   };
 
   const extraordinary = "Extraordinary.";
@@ -93,8 +123,8 @@ export function Contact() {
           </h3>
         </div>
 
-        {/* Availability Badge */}
-        <div className="mt-8 flex justify-center">
+        {/* Availability & Live IST Time Badge */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-emerald-400 backdrop-blur-md">
             <span
               className="h-2 w-2 rounded-full bg-emerald-400"
@@ -102,6 +132,13 @@ export function Contact() {
             />
             {personal.availability} · Salem / Remote
           </span>
+
+          {localTime && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-amber-300 backdrop-blur-md">
+              <Clock size={14} className="text-amber-400" />
+              <span>Salem Local Time: {localTime} IST</span>
+            </span>
+          )}
         </div>
 
         <motion.div
@@ -111,8 +148,8 @@ export function Contact() {
           viewport={{ once: true, margin: "-80px" }}
           className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2"
         >
-          {/* Left Column: Direct Info & Copy Email */}
-          <motion.div variants={fadeUp} className="space-y-8">
+          {/* Left Column: Direct Info & Copy Cards */}
+          <motion.div variants={fadeUp} className="space-y-6">
             {/* Interactive Email Copy Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -131,31 +168,45 @@ export function Contact() {
                 </div>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-gray-400 group-hover:border-amber-500 group-hover:text-amber-400 transition-colors">
-                {copied ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
+                {copiedEmail ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
               </div>
             </motion.div>
 
-            {/* Direct Contact Cards */}
-            <div className="space-y-4">
-              {[
-                { icon: Phone, label: "Phone", value: personal.phone },
-                { icon: MapPin, label: "Location", value: personal.location },
-              ].map(({ icon: Icon, label, value }) => (
-                <motion.div
-                  key={label}
-                  whileHover={{ x: 6 }}
-                  className="glow-card flex items-center gap-4 rounded-xl border border-white/10 bg-[#0D0D14] p-4"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
-                    <Icon size={18} />
+            {/* Interactive Phone Copy Card */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              onClick={copyPhone}
+              className="glow-card cursor-pointer group flex items-center justify-between rounded-2xl border border-white/10 bg-[#0D0D14] p-6 shadow-xl"
+            >
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
+                  <Phone size={22} />
+                </div>
+                <div>
+                  <div className="font-mono text-xs text-gray-400 uppercase">Click to Copy Phone</div>
+                  <div className="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                    {personal.phone}
                   </div>
-                  <div>
-                    <div className="font-mono text-xs text-gray-400 uppercase">{label}</div>
-                    <div className="font-semibold text-gray-200">{value}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-gray-400 group-hover:border-amber-500 group-hover:text-amber-400 transition-colors">
+                {copiedPhone ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
+              </div>
+            </motion.div>
+
+            {/* Location Card */}
+            <motion.div
+              whileHover={{ x: 6 }}
+              className="glow-card flex items-center gap-4 rounded-xl border border-white/10 bg-[#0D0D14] p-5"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
+                <MapPin size={20} />
+              </div>
+              <div>
+                <div className="font-mono text-xs text-gray-400 uppercase">Location</div>
+                <div className="font-semibold text-gray-200">{personal.location}</div>
+              </div>
+            </motion.div>
 
             {/* Social Links with Tooltips */}
             <div>
@@ -277,6 +328,9 @@ export function Contact() {
           </motion.form>
         </motion.div>
       </div>
+
+      {/* Toast Notification */}
+      <Toast message={toastMsg} onClose={() => setToastMsg(null)} />
     </section>
   );
 }
