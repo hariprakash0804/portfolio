@@ -23,9 +23,28 @@ export function BackgroundVideo() {
   const [currentVideo, setCurrentVideo] = useState("/hero.mp4");
   const [nextVideo, setNextVideo] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const currentVideoRef = useRef(currentVideo);
+  currentVideoRef.current = currentVideo;
 
+  // Force play on mount and video source updates
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay policy fallback, muted videos typically play fine
+      });
+    }
+  }, [currentVideo]);
+
+  useEffect(() => {
+    if (nextVideoRef.current && nextVideo) {
+      nextVideoRef.current.play().catch(() => {});
+    }
+  }, [nextVideo]);
+
+  // Section observer for dynamic video changing
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,32 +60,30 @@ export function BackgroundVideo() {
 
         if (topSection && sectionVideoMap[topSection]) {
           const newVideo = sectionVideoMap[topSection];
-          if (newVideo !== currentVideo) {
+          if (newVideo !== currentVideoRef.current) {
             setNextVideo(newVideo);
             setTransitioning(true);
             setTimeout(() => {
               setCurrentVideo(newVideo);
               setTransitioning(false);
               setNextVideo(null);
-            }, 800);
+            }, 700);
           }
         }
       },
-      { threshold: [0.3, 0.5, 0.7] }
+      { threshold: [0.2, 0.4, 0.6] }
     );
 
-    // Observe all sections
     sectionIds.forEach((id) => {
-      // Hero doesn't have an id on section, it's the first section
-      const el = document.getElementById(id) || document.querySelector(`section:first-of-type`);
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, [currentVideo]);
+  }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#050508]">
       {/* Primary video */}
       <video
         ref={videoRef}
@@ -76,7 +93,7 @@ export function BackgroundVideo() {
         loop
         playsInline
         className="h-full w-full object-cover transition-opacity duration-700"
-        style={{ opacity: transitioning ? 0 : 0.15 }}
+        style={{ opacity: transitioning ? 0 : 0.45 }}
       />
 
       {/* Crossfade video */}
@@ -89,15 +106,16 @@ export function BackgroundVideo() {
           loop
           playsInline
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
-          style={{ opacity: transitioning ? 0.15 : 0 }}
+          style={{ opacity: transitioning ? 0.45 : 0 }}
         />
       )}
 
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-[#050508]/80" />
+      {/* Translucent overlay for text readability without washing out video */}
+      <div className="absolute inset-0 bg-[#050508]/40 backdrop-brightness-90" />
 
       {/* Vignette */}
       <div className="vignette-overlay absolute inset-0" />
     </div>
   );
 }
+
