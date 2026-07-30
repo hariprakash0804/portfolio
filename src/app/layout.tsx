@@ -81,11 +81,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Hariprakash A" }],
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png?v=2", type: "image/png" },
+      { url: "/icon.svg?v=2", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=2", sizes: "any" },
     ],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    shortcut: "/icon.png?v=2",
+    apple: "/apple-icon.png?v=2",
   },
   openGraph: {
     title: "Hariprakash A — Cinematic Portfolio",
@@ -127,6 +128,10 @@ export default function RootLayout({
       className={`${clashDisplay.variable} ${editorialNew.variable} ${dmSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <head>
+        <link rel="icon" href="/icon.png?v=2" type="image/png" />
+        <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=2" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
