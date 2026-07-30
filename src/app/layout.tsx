@@ -79,6 +79,14 @@ export const metadata: Metadata = {
     "Next.js",
   ],
   authors: [{ name: "Hariprakash A" }],
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "Hariprakash A — Cinematic Portfolio",
     description:
