@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
+import { escapeJsonLd } from "@/lib/utils";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -134,7 +135,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png?v=2" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: escapeJsonLd(jsonLd) }}
         />
       </head>
       <body className="min-h-full bg-[#050508] text-[#F0EEE6] font-body overflow-x-hidden">

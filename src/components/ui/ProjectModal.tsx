@@ -5,6 +5,7 @@ import { X, ExternalLink, Sparkles, Code2, Layers, CheckCircle } from "lucide-re
 import { GithubIcon } from "../icons/SocialIcons";
 import { BrandIcon } from "../icons/TechIcons";
 import { Project } from "@/data/portfolio";
+import { sanitizeUrl } from "@/lib/utils";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -75,7 +76,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               <div className="flex gap-3">
                 {project.liveUrl && (
                   <a
-                    href={project.liveUrl}
+                    href={sanitizeUrl(project.liveUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 rounded-full bg-amber-500 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[#050508] transition-transform hover:scale-105 shadow-lg shadow-amber-500/30"
@@ -86,7 +87,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 )}
                 {project.githubUrl && (
                   <a
-                    href={project.githubUrl}
+                    href={sanitizeUrl(project.githubUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition-transform hover:scale-105 hover:border-amber-500"

@@ -8,7 +8,7 @@ import { BrandIcon } from "./icons/TechIcons";
 import { projects, Project } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { ProjectModal } from "./ui/ProjectModal";
-import { cn } from "@/lib/utils";
+import { cn, sanitizeUrl } from "@/lib/utils";
 
 const filters = ["All", "Featured", ...Array.from(new Set(projects.map((p) => p.category)))];
 
@@ -117,7 +117,7 @@ export function Projects() {
                       </button>
                       {project.liveUrl && (
                         <a
-                          href={project.liveUrl}
+                          href={sanitizeUrl(project.liveUrl)}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
@@ -129,7 +129,7 @@ export function Projects() {
                       )}
                       {project.githubUrl && (
                         <a
-                          href={project.githubUrl}
+                          href={sanitizeUrl(project.githubUrl)}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}

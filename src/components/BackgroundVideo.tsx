@@ -27,7 +27,11 @@ export function BackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const nextVideoRef = useRef<HTMLVideoElement>(null);
   const currentVideoRef = useRef(currentVideo);
-  currentVideoRef.current = currentVideo;
+
+  // Keep currentVideoRef in sync safely
+  useEffect(() => {
+    currentVideoRef.current = currentVideo;
+  }, [currentVideo]);
 
   // Force play on mount and video source updates
   useEffect(() => {

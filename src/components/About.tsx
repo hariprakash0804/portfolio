@@ -6,6 +6,7 @@ import { MapPin, Globe, Heart, BookOpen, Cpu, Code, Server, Brain, Shield, Arrow
 import { personal, strengths, softSkills, additionalInfo } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerContainer, slideInLeft, slideInRight } from "@/lib/motion";
+import { sanitizeUrl } from "@/lib/utils";
 
 export function About() {
   const [copiedCode, setCopiedCode] = useState(false);
@@ -78,7 +79,7 @@ export function About() {
             {/* GitHub Link with Animated Arrow */}
             <div className="pt-2">
               <a
-                href={personal.links.github}
+                href={sanitizeUrl(personal.links.github)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="magnetic group inline-flex items-center gap-2 font-mono text-sm font-semibold uppercase tracking-widest text-amber-400 hover:text-amber-300 transition-colors"

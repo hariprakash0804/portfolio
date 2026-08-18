@@ -7,6 +7,7 @@ import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
 import { personal } from "@/data/portfolio";
 import { GradientMesh } from "./GradientMesh";
 import { ResumeModal } from "./ui/ResumeModal";
+import { sanitizeUrl } from "@/lib/utils";
 
 export function Hero() {
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -166,8 +167,8 @@ export function Hero() {
           className="mt-12 flex items-center justify-center gap-4"
         >
           {[
-            { icon: GithubIcon, href: personal.links.github, label: "GitHub" },
-            { icon: LinkedinIcon, href: personal.links.linkedin, label: "LinkedIn" },
+            { icon: GithubIcon, href: sanitizeUrl(personal.links.github), label: "GitHub" },
+            { icon: LinkedinIcon, href: sanitizeUrl(personal.links.linkedin), label: "LinkedIn" },
           ].map(({ icon: Icon, href, label }) => (
             <motion.a
               key={label}

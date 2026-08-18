@@ -6,6 +6,7 @@ import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
 import { codingProfiles } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+import { sanitizeUrl } from "@/lib/utils";
 
 const platformIcons: Record<string, typeof GithubIcon> = {
   GitHub: GithubIcon,
@@ -36,7 +37,7 @@ export function CodingProfiles() {
             return (
               <motion.a
                 key={profile.platform}
-                href={profile.url}
+                href={sanitizeUrl(profile.url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={fadeUp}

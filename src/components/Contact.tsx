@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, Send, CheckCircle, Copy, Check, Clock } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons/SocialIcons";
@@ -8,10 +8,11 @@ import { personal } from "@/data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Toast } from "./ui/Toast";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+import { sanitizeInput, sanitizeUrl } from "@/lib/utils";
 
 const socialLinks = [
-  { icon: GithubIcon, href: personal.links.github, label: "GitHub" },
-  { icon: LinkedinIcon, href: personal.links.linkedin, label: "LinkedIn" },
+  { icon: GithubIcon, href: sanitizeUrl(personal.links.github), label: "GitHub" },
+  { icon: LinkedinIcon, href: sanitizeUrl(personal.links.linkedin), label: "LinkedIn" },
 ];
 
 export function Contact() {
@@ -20,11 +21,13 @@ export function Contact() {
     email: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [localTime, setLocalTime] = useState("");
+  const lastSubmitTimeRef = useRef<number>(0);
 
   useEffect(() => {
     const updateTime = () => {
@@ -45,6 +48,41 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 1. Honeypot Bot Trap Check
+    if (honeypot.trim().length > 0) {
+      // Silently swallow bot submission
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+      setFormState({ name: "", email: "", message: "" });
+      return;
+    }
+
+    // 2. Client-side Rate-limiting Cooldown (5 seconds)
+    const now = Date.now();
+    if (now - lastSubmitTimeRef.current < 5000) {
+      setToastMsg("Please wait a moment before sending another message.");
+      return;
+    }
+
+    // 3. Input Sanitization & Bounds Checking
+    const cleanName = sanitizeInput(formState.name, 100);
+    const cleanEmail = sanitizeInput(formState.email, 100);
+    const cleanMessage = sanitizeInput(formState.message, 2000);
+
+    if (!cleanName || !cleanEmail || !cleanMessage) {
+      setToastMsg("Please fill out all required fields.");
+      return;
+    }
+
+    // 4. Strict Email Format Verification
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(cleanEmail)) {
+      setToastMsg("Please provide a valid email address.");
+      return;
+    }
+
+    lastSubmitTimeRef.current = now;
     setSubmitted(true);
     setToastMsg("Thank you! Your message has been sent successfully.");
     setTimeout(() => setSubmitted(false), 4000);
@@ -243,6 +281,20 @@ export function Contact() {
             className="glow-card rounded-2xl border border-white/10 bg-[#0D0D14] p-8 shadow-2xl"
           >
             <div className="space-y-5">
+              {/* Anti-Bot Honeypot Field (hidden from human users) */}
+              <div aria-hidden="true" style={{ opacity: 0, position: "absolute", top: 0, left: 0, height: 0, width: 0, zIndex: -1, pointerEvents: "none" }}>
+                <label htmlFor="contact-company-trap">Leave this empty</label>
+                <input
+                  id="contact-company-trap"
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               <div>
                 <label htmlFor="contact-name" className="mb-2 block font-mono text-xs uppercase tracking-wider text-gray-400">
                   Name
@@ -251,6 +303,8 @@ export function Contact() {
                   id="contact-name"
                   type="text"
                   required
+                  maxLength={100}
+                  autoComplete="name"
                   value={formState.name}
                   onChange={(e) =>
                     setFormState({ ...formState, name: e.target.value })
@@ -267,6 +321,8 @@ export function Contact() {
                   id="contact-email"
                   type="email"
                   required
+                  maxLength={100}
+                  autoComplete="email"
                   value={formState.email}
                   onChange={(e) =>
                     setFormState({ ...formState, email: e.target.value })
@@ -286,6 +342,7 @@ export function Contact() {
                   id="contact-message"
                   required
                   rows={5}
+                  maxLength={2000}
                   value={formState.message}
                   onChange={(e) =>
                     setFormState({ ...formState, message: e.target.value })
