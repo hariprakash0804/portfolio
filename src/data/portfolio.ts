@@ -30,7 +30,7 @@ export const personal = {
   email: "hariprakashanbarasan@gmail.com",
   phone: "+91 9361326233",
   links: {
-    resume: "https://drive.google.com/file/d/1T09Hg_cIUDFJqzd46WeuK-X46eoSoJVL/view?usp=sharing",
+    resume: "https://drive.google.com/file/d/17P2DGo3oC0dnr0kQ02BeUY8YhQCQPWiL/view?usp=sharing",
     github: "https://github.com/hariprakash0804",
     linkedin: "https://www.linkedin.com/in/hariprakash-a-55bab6261",
   },
@@ -586,6 +586,12 @@ export const timeline: TimelineEvent[] = [
     title: "Paper Presentations",
     subtitle: "Enhancing Legal Literacy Through LegalBuddy AI Problem Driven Design With Superior Outcome Metric",
     type: "paper",
+  },
+  {
+    date: "2026",
+    title: "Graduated",
+    subtitle: "K.S.R Institute for Engineering and Technology, Tiruchengode",
+    type: "education",
   },
 ];
 
