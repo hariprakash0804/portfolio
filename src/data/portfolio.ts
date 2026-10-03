@@ -270,6 +270,18 @@ export const experience: Experience[] = [
       "Completed hands-on projects involving cloud infrastructure and analytical operations.",
     ],
   },
+  {
+    role: "AI Engineer",
+    company: "Global Knowledge Technologies",
+    duration: "Jan 2026 – Sep 2026",
+    location: "Bangalore",
+    bullets: [
+      "Architected and built AetherLMS, a full-stack enterprise Learning Management System, from scratch — designing 42 domains and ~1,100 features across a 17-phase build specification.",
+      "Made key architecture decisions, including migrating from Prisma/PostgreSQL to Sequelize/MySQL and replacing paid third-party services with self-hosted alternatives such as a custom mock payment engine.",
+      "Debugged a modal-clipping regression across 27 files and a Core Web Vitals (FID) performance regression, tracing both issues to root cause.",
+      "Built HPECMobileApp's DB-to-screen field traceability audit toolchain, tracing field usage from database to UI across PostgreSQL, Sequelize-TypeScript, Express, Zustand, and React Native.",
+    ],
+},
 ];
 
 /* ------------------------------------------------------------------ */
