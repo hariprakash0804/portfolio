@@ -34,7 +34,7 @@ export const personal = {
     github: "https://github.com/hariprakash0804",
     linkedin: "https://www.linkedin.com/in/hariprakashanbarasan",
   },
-  avatar: "/profile.png",
+  avatar: "/HARIPRAKASH.png",
 };
 
 /* ------------------------------------------------------------------ */
