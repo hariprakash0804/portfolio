@@ -30,9 +30,9 @@ export const personal = {
   email: "hariprakashanbarasan@gmail.com",
   phone: "+91 9361326233",
   links: {
-    resume: "https://drive.google.com/file/d/17P2DGo3oC0dnr0kQ02BeUY8YhQCQPWiL/view?usp=sharing",
+    resume: "https://drive.google.com/file/d/1yVt6PPTV-DycrvJCgqLNtPojX28njvS-/view?usp=sharing",
     github: "https://github.com/hariprakash0804",
-    linkedin: "https://www.linkedin.com/in/hariprakash-a-55bab6261",
+    linkedin: "https://www.linkedin.com/in/hariprakashanbarasan",
   },
   avatar: "/profile.png",
 };
